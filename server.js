@@ -1,31 +1,26 @@
 var express  = require('express'),
     mongoose = require('mongoose'),
-    bodyParser = require('body-parser'),
-
-    // Mongoose Schema definition
-    Schema = new mongoose.Schema({
-      id       : String, 
-      title    : String,
-      completed: Boolean
-    }),
-
-    Todo = mongoose.model('Todo', Schema);
-
+    bodyParser = require('body-parser');
 
 mongoose.connect(process.env.MONGOLAB_URI, function (error) {
     if (error) console.error(error);
     else console.log('mongo connected');
 });
 
-var app = express()
-  .use(bodyParser.json()) // support json encoded bodies
-  .use(bodyParser.urlencoded({ extended: true })) // support encoded bodies
+var app = express();
+  
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-  .get('/', function (req, res) {
+
+app.use(express.static(__dirname + '/'));
+
+app.get('/', function (req, res) {
     res.json(200, {msg: 'OK' });
-  })
+  });
 
-  .use(express.static(__dirname + '/'))
-  .listen(process.env.PORT || 5000);
+var locationResource = require('./resources/location');
 
-module.exports = app;
+app.post('/location', locationResource.post);
+
+module.exports = app.listen(process.env.PORT || 5000);

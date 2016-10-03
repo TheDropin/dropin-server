@@ -12,13 +12,13 @@ describe('loading express', function () {
         server.close();
     });
 
-    it('responds to /', function testSlash(done) {
+    it('responds to /', function(done) {
         request(server)
             .get('/')
             .expect(200, done);
     });
 
-    it('404 everything else', function testPath(done) {
+    it('404 everything else', function(done) {
         request(server)
             .get('/foo/bar')
             .expect(404, done);
