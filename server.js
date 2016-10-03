@@ -24,5 +24,6 @@ app.get('/', function (req, res) {
 var locationResource = require('./resources/location');
 
 app.post('/location', locationResource.post);
+app.get('/location', locationResource.get);
 
 module.exports = app.listen(process.env.PORT || 5000);

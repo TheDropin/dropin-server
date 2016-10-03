@@ -3,7 +3,7 @@ var request = require('supertest');
 
 describe('locations', function () {
 
-    var server;
+    var server, location_id;
     
     beforeEach(function () {
         server = require('../server');
@@ -30,6 +30,7 @@ describe('locations', function () {
                 expect(err).toBeNull();
             
                 location_id = resp._id;
+                done();
             });
     });
     
@@ -46,7 +47,8 @@ describe('locations', function () {
             .end(function(err, resp){
                 expect(err).toBeNull();
             
-                expect(resp.content).toBeArray();
+                expect(resp.body.content).toBeArray();
+                done();
             });
         
     });
@@ -57,6 +59,7 @@ describe('locations', function () {
             .delete('/location/'+location_id)
             .end(function(err, resp){
                 expect(err).toBeNull();
+                done();
             });
         
         
