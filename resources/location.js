@@ -2,12 +2,10 @@ var Location = require('../models/location');
 
 module.exports.get = function(req, res) {
 
-    var geo_header = req.headers['geo-position'];
-    var parts = geo_header.split(' ');
-    var lat_lng = parts[0].split(',');
+    var geo = util.getGeoHeader(req);
     
     res.json({
-        content: lat_lng
+        content: geo
     });
 };
 
