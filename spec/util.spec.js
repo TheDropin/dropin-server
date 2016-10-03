@@ -13,6 +13,8 @@ describe('util', function () {
 
         var decoded = util.getGeoHeader(req);
         
+        expect(decoded.latitude).toBeNumber();
+        
     });
         
 });
