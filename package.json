@@ -14,6 +14,8 @@
     "grunt-contrib-watch": "^1.0.0",
     "grunt-express-server": "^0.5.3",
     "grunt-jasmine-node": "^0.3.1",
+    "jasmine-expect": "^3.0.1",
+    "jasmine-matchers": "^0.2.3",
     "jasmine-node": "^1.14.5",
     "supertest": "^2.0.0"
   },
