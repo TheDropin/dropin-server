@@ -2,7 +2,7 @@ var express  = require('express'),
     mongoose = require('mongoose'),
     bodyParser = require('body-parser');
 
-mongoose.connect(process.env.MONGOLAB_URI, function (error) {
+mongoose.connect(process.env.MONGODB_URI, function (error) {
     if (error) console.error(error);
     else console.log('mongo connected');
 });
