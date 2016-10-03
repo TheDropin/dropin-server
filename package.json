@@ -1,0 +1,28 @@
+{
+  "name": "the_dropin",
+  "version": "0.0.1",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "jasmine-node spec/*.spec.js"
+  },
+  "author": "Joe Beuckman <joebeuckman@gmail.com>",
+  "license": "FREEDOM",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-jshint": "^1.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-express-server": "^0.5.3",
+    "grunt-jasmine-node": "^0.3.1",
+    "jasmine-node": "^1.14.5",
+    "supertest": "^2.0.0"
+  },
+  "dependencies": {
+    "express": "~3.4.7",
+    "body-parser": "~1.13.1",
+    "mongoose": "~4.0.6"
+  },
+  "engines": {
+    "node": ">=0.10.25"
+  }
+}
