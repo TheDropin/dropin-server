@@ -2,30 +2,51 @@ var Location = require('../models/location');
 var util = require('../util');
 
 module.exports.get = function (req, res) {
-
-    var geo = util.getGeoHeader(req);
-    if (!geo) {
-        return res.status(400).json({
-            message: "Geo-Position header required."
-        });
+    
+    var bounds = false;
+    var q = req.query;
+    if (q.xmin && q.xmax && q.ymin && q.ymax) {
+        bounds = q;
     }
 
-    Location.aggregate().near({
-        near: geo.coordinates,
-        distanceField: "dist.calculated",
-        maxDistance: 1000,
-        query: {
-//            status: "approved"
-        },
-        uniqueDocs: true
-    }).exec(function (err, resp) {
+    var geo = util.getGeoHeader(req);
+    
+    if (bounds) {
+        
+        Location.find({
+            
+        }).exec(function (err, resp) {
 
-        res.json({
-            query: geo,
-            content: resp
+            res.json({
+                query: bounds,
+                content: resp
+            });
         });
-    });
+        
+    }
+    else if (geo) {
+    
+        Location.aggregate().near({
+            near: geo.coordinates,
+            distanceField: "dist.calculated",
+            maxDistance: 1000,
+            query: {
+    //            status: "approved"
+            },
+            uniqueDocs: true
+        }).exec(function (err, resp) {
 
+            res.json({
+                query: geo,
+                content: resp
+            });
+        });
+        
+    } else {
+        return res.status(400).json({
+            message: "Bounds or Geo-Position header required."
+        });
+    }
 };
 
 

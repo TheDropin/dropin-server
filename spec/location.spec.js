@@ -39,7 +39,7 @@ describe('locations', function () {
             });
     });
     
-    it('requires geo header to find locs', function(done){
+    it('requires geo header or bounds to find locs', function(done){
         
         request(server)
             .get(prefix+'/location')
@@ -65,6 +65,25 @@ describe('locations', function () {
                 done();
             });
         
+    });
+    
+    it('can get locations within rect', function(done){
+        
+        var bounds = {
+            xmin: -94,
+            xmax: -92,
+            ymin: 44,
+            ymax: 46
+        };
+        
+        request(server)
+            .get(prefix+'/location')
+            .query(bounds)
+            .end(function(err, resp){
+                expect(err).toBeNull();
+
+                done();
+            });
     });
     
     it('can delete a location', function(done){
