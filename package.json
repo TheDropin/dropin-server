@@ -1,7 +1,7 @@
 {
-  "name": "the_dropin",
+  "name": "dropin_server",
   "version": "0.0.1",
-  "description": "",
+  "description": "crowd-sourced database of located public amenities",
   "main": "server.js",
   "scripts": {
     "test": "jasmine-node spec/*.spec.js"
@@ -20,8 +20,8 @@
     "supertest": "^2.0.0"
   },
   "dependencies": {
-    "express": "~3.4.7",
     "body-parser": "~1.13.1",
+    "express": "^4.14.0",
     "mongoose": "~4.0.6"
   },
   "engines": {

@@ -3,6 +3,7 @@ var request = require('supertest');
 describe('loading express', function () {
 
     var server;
+    var prefix = "/api/v1";
     
     beforeEach(function () {
         server = require('../server');
@@ -14,13 +15,13 @@ describe('loading express', function () {
 
     it('responds to /', function(done) {
         request(server)
-            .get('/')
+            .get(prefix+'/')
             .expect(200, done);
     });
 
     it('404 everything else', function(done) {
         request(server)
-            .get('/foo/bar')
+            .get(prefix+'/foo/bar')
             .expect(404, done);
     });
         

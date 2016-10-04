@@ -4,6 +4,7 @@ var request = require('supertest');
 describe('locations', function () {
 
     var server, location_id;
+    var prefix = "/api/v1";
     
     beforeEach(function () {
         server = require('../server');
@@ -27,7 +28,7 @@ describe('locations', function () {
         };
         
         request(server)
-            .post('/location')
+            .post(prefix+'/location')
             .send(loc)
             .expect(201)
             .end(function(err, resp){
@@ -41,7 +42,7 @@ describe('locations', function () {
     it('requires geo header to find locs', function(done){
         
         request(server)
-            .get('/location')
+            .get(prefix+'/location')
             .expect(400, done);
     });
     
@@ -55,12 +56,10 @@ describe('locations', function () {
         };
         
         request(server)
-            .get('/location')
+            .get(prefix+'/location')
             .set(geo_header)
             .end(function(err, resp){
                 expect(err).toBeNull();
-            
-            console.log(resp.body.content);
 
                 expect(resp.body.content).toBeArray();
                 done();
@@ -71,7 +70,7 @@ describe('locations', function () {
     it('can delete a location', function(done){
         
         request(server)
-            .delete('/location/'+location_id)
+            .delete(prefix+'/location/'+location_id)
             .end(function(err, resp){
                 expect(err).toBeNull();
                 done();

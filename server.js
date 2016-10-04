@@ -1,4 +1,4 @@
-var express  = require('express'),
+var express = require('express'),
     mongoose = require('mongoose'),
     bodyParser = require('body-parser');
 
@@ -10,20 +10,34 @@ mongoose.connect(db_url, function (error) {
 });
 
 var app = express();
-  
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 app.use(express.static(__dirname + '/'));
 
-app.get('/', function (req, res) {
-    res.json(200, {msg: 'OK' });
-  });
+
+var api = express.Router();
+
+api.get('/', function (req, res) {
+    res.status(200).json({
+        msg: 'OK'
+    });
+});
 
 var locationResource = require('./resources/location');
 
-app.post('/location', locationResource.post);
-app.get('/location', locationResource.get);
+api.post('/location', locationResource.post);
+api.get('/location', locationResource.get);
 
-module.exports = app.listen(process.env.PORT || 5000);
+app.use('/api/v1', api);
+
+var server = app.listen(process.env.PORT || 5000, function () {
+    var port = server.address().port;
+    console.log('Express listening at port %s', port);
+});
+
+
+module.exports = server;

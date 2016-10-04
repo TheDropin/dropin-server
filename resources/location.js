@@ -5,7 +5,7 @@ module.exports.get = function (req, res) {
 
     var geo = util.getGeoHeader(req);
     if (!geo) {
-        res.status(400).json({
+        return res.status(400).json({
             message: "Geo-Position header required."
         });
     }
