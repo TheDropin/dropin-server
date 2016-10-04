@@ -46,7 +46,7 @@ describe('locations', function () {
             .set(geo_header)
             .end(function(err, resp){
                 expect(err).toBeNull();
-            
+
                 expect(resp.body.content).toBeArray();
                 done();
             });

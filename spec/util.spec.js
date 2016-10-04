@@ -3,7 +3,7 @@ var util = require('../util');
 
 describe('util', function () {
 
-    it('can decode a geo-header', function (done) {
+    it('can decode a geo-header', function () {
 
         var req = {
             headers: {

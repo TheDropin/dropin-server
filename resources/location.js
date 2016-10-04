@@ -1,12 +1,18 @@
 var Location = require('../models/location');
+var util = require('../util');
 
 module.exports.get = function(req, res) {
 
     var geo = util.getGeoHeader(req);
     
-    res.json({
-        content: geo
+    Location.find({}, function(err, resp){
+        
+        res.json({
+            query: geo,
+            content: resp
+        });
     });
+    
 };
 
 
