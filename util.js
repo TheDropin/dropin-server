@@ -1,11 +1,14 @@
 module.exports.getGeoHeader = function(req) {
 
     var geo_header = req.headers['geo-position'];
+    if (geo_header == null) return false;
+    
     var parts = geo_header.split(' ');
-    var lat_lng = parts[0].split(',').map(parseFloat);
+    var coordinates = parts[0].split(',').map(parseFloat);
     
     return {
-        latitude: lat_lng[0],
-        longitude: lat_lng[1]
+        coordinates: coordinates,
+        latitude: coordinates[0],
+        longitude: coordinates[1]
     };
 };

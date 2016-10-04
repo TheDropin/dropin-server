@@ -15,11 +15,15 @@ describe('locations', function () {
 
     it('can post a location', function(done) {
         
+        var lat = 44.9 + (Math.random() - .5);
+        var lon = -93.2 + (Math.random() - .5);
+        
         var loc = {
             description: 'test',
-            longitude: 1,
-            latitude: 1,
-            status: 'test'
+            status: 'test',
+            geometry: {
+                coordinates: [lat,lon]
+            }
         };
         
         request(server)
@@ -34,11 +38,20 @@ describe('locations', function () {
             });
     });
     
+    it('requires geo header to find locs', function(done){
+        
+        request(server)
+            .get('/location')
+            .expect(400, done);
+    });
     
     it('can get nearby locations', function(done) {
         
+        var lat = 44.9 + (Math.random() - .5);
+        var lon = -93.2 + (Math.random() - .5);
+        
         var geo_header = {
-            "Geo-Position": "44.9,-93.3 epu=50 hdn=45 spd=15"
+            "Geo-Position": lat+","+lon+" epu=50 hdn=45 spd=15"
         };
         
         request(server)
@@ -46,6 +59,8 @@ describe('locations', function () {
             .set(geo_header)
             .end(function(err, resp){
                 expect(err).toBeNull();
+            
+            console.log(resp.body.content);
 
                 expect(resp.body.content).toBeArray();
                 done();

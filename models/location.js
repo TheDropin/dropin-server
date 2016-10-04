@@ -1,25 +1,38 @@
 var mongoose = require('mongoose');
 
 var Schema = new mongoose.Schema({
+    type: {
+        type: String,
+        required: true,
+        default: "Feature"
+    },
+    geometry: {
+        type: {
+            type: String,
+            default: "Point",
+            required: true
+        },
+        coordinates: {
+            type: [Number, Number],
+            index: '2d'
+        }
+    },
+    properties: {
+        name: {
+            type: String
+        },
+    },
     description: {
         type: String,
         required: true
     },
-    latitude: {
-        type: Number,
-        required: true
-    },
-    longitude: {
-        type: Number,
-        required: true
-    },
     status: {
         type: String,
-        required: true
+        required: true,
+        default: "new"
     }
-},
-{
+}, {
     timestamps: true
 });
 
-module.exports = mongoose.model('Location', Schema);
+        module.exports = mongoose.model('Location', Schema);
