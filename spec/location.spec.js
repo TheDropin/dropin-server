@@ -75,8 +75,7 @@ describe('locations', function () {
                 expect(err).toBeNull();
                 done();
             });
-        
-        
+
     });
         
 });

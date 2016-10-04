@@ -18,6 +18,13 @@ app.use(bodyParser.urlencoded({
 
 app.use(express.static(__dirname + '/'));
 
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin,X-Requested-With,Content-Type,Accept,Authorization,Geo-Position");
+    res.header("Access-Control-Allow-Methods", "HEAD,GET,POST,PUT,DELETE,OPTIONS,TRACE,CONNECT");
+    
+    next();
+});
 
 var api = express.Router();
 
