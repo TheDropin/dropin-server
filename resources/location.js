@@ -12,9 +12,15 @@ module.exports.get = function (req, res) {
     var geo = util.getGeoHeader(req);
     
     if (bounds) {
-        
         Location.find({
-            
+            'geometry.coordinates': {
+                $geoWithin: {
+                    $box: [
+                        [bounds.ymin, bounds.xmin],
+                        [bounds.ymax, bounds.xmax]
+                    ]
+                }                      
+            }                      
         }).exec(function (err, resp) {
 
             res.json({

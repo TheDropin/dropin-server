@@ -82,6 +82,9 @@ describe('locations', function () {
             .end(function(err, resp){
                 expect(err).toBeNull();
 
+                expect(resp.body.content).toBeArray();
+                expect(resp.body.content.length).toBeGreaterThan(0);
+            
                 done();
             });
     });
