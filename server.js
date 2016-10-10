@@ -30,12 +30,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-/*
-app.use(session({ secret: '879tI&U^$EDV%E&n96tb978TB*7trb87%rtb875rb865*^' })); // session secret
+
+app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(flash());
-*/
 
 app.use(express.static(__dirname + '/'));
 

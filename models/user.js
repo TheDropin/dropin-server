@@ -37,11 +37,13 @@ UserSchema.pre('save', function (callback) {
     });
 });
 
-UserSchema.methods.verifyPassword = function(password, cb) {
-  bcrypt.compare(password, this.password, function(err, isMatch) {
-    if (err) return cb(err);
-    cb(null, isMatch);
-  });
+UserSchema.methods.comparePassword = function (passw, callback) {
+    bcrypt.compare(passw, this.password, function (err, isMatch) {
+        if (err) {
+            return callback(err);
+        }
+        callback(null, isMatch);
+    });
 };
 
 // Export the Mongoose model

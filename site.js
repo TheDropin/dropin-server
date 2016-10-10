@@ -6,7 +6,7 @@ var login = require('connect-ensure-login');
 var User = require('./models/user');
 
 exports.index = function (req, res) {
-    res.send('OAuth 2.0 Server');
+    res.send('yo');
 };
 
 exports.registerForm = function (req, res) {
@@ -49,8 +49,7 @@ exports.account = [
     function (req, res) {
         var result = {
             username: req.user.username,
-            _id: req.user._id,
-            accounts: req.user.accounts
+            _id: req.user._id
         };
         res.json(result);
     }
