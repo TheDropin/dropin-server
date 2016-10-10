@@ -49,13 +49,10 @@ function loggedIn(req, res, next) {
     }
 }
 
-exports.account = [
-    loggedIn,
-    function (req, res) {
-        var result = {
-            username: req.user.username,
-            _id: req.user._id
-        };
-        res.json(result);
-    }
-];
+exports.account = function (req, res) {
+    var result = {
+        username: req.user.username,
+        _id: req.user._id
+    };
+    res.json(result);
+};

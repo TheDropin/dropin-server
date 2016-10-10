@@ -53,7 +53,7 @@ app.post('/register', site.register);
 app.get('/login', site.loginForm);
 app.post('/login', site.login);
 app.get('/logout', site.logout);
-app.get('/account', site.account);
+app.get('/account', [authController.checkLocalAuth, site.account]);
 
 var api = express.Router();
 

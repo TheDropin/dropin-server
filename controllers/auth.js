@@ -53,3 +53,12 @@ passport.deserializeUser(function (id, done) {
         done(err, user);
     });
 });
+
+
+exports.checkLocalAuth = function(req, res, next) {
+    if (req.user) {
+        next();
+    } else {
+        res.redirect('/login');
+    }
+};
