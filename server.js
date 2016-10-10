@@ -1,6 +1,15 @@
-var express = require('express'),
-    mongoose = require('mongoose'),
-    bodyParser = require('body-parser');
+var express = require('express');
+var expressLayouts = require('express-ejs-layouts');
+var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
+var ejs = require('ejs');
+var morgan       = require('morgan');
+var cookieParser = require('cookie-parser');
+var session      = require('express-session');
+var flash    = require('connect-flash');
+
+var passport = require('passport');
+var authController = require('./controllers/auth');
 
 var db_url = process.env.MONGODB_URI || 'mongodb://localhost:27017/dropin';
 
@@ -11,10 +20,22 @@ mongoose.connect(db_url, function (error) {
 
 var app = express();
 
+app.set('view engine', 'ejs');
+app.use(expressLayouts);
+
+app.use(morgan('dev')); // log every request to the console
+app.use(cookieParser()); // read cookies (needed for auth)
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+/*
+app.use(session({ secret: '879tI&U^$EDV%E&n96tb978TB*7trb87%rtb875rb865*^' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+*/
 
 app.use(express.static(__dirname + '/'));
 
@@ -25,6 +46,15 @@ app.use(function (req, res, next) {
     
     next();
 });
+
+var site = require('./site');
+
+app.get('/', site.index);
+app.get('/register', site.registerForm);
+app.post('/register', site.register);
+app.get('/login', site.loginForm);
+app.post('/login', site.login);
+app.get('/logout', site.logout);
 
 var api = express.Router();
 
