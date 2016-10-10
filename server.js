@@ -35,9 +35,15 @@ api.get('/', function (req, res) {
 });
 
 var locationResource = require('./resources/location');
+var userResource = require('./resources/user');
 
-api.post('/location', locationResource.post);
-api.get('/location', locationResource.get);
+api.route('/location')
+    .post(locationResource.post)
+    .get(locationResource.get);
+
+api.route('/users')
+  .post(userResource.postUsers)
+  .get(userResource.getUsers);
 
 app.use('/api/v1', api);
 

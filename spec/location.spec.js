@@ -16,8 +16,8 @@ describe('locations', function () {
 
     it('can post a location', function(done) {
         
-        var lat = 44.9 + (Math.random() - .5);
-        var lon = -93.2 + (Math.random() - .5);
+        var lat = 44.9 + (Math.random() - 0.5);
+        var lon = -93.2 + (Math.random() - 0.5);
         
         var loc = {
             description: 'test',
@@ -48,8 +48,8 @@ describe('locations', function () {
     
     it('can get nearby locations', function(done) {
         
-        var lat = 44.9 + (Math.random() - .5);
-        var lon = -93.2 + (Math.random() - .5);
+        var lat = 44.9 + (Math.random() - 0.5);
+        var lon = -93.2 + (Math.random() - 0.5);
         
         var geo_header = {
             "Geo-Position": lat+","+lon+" epu=50 hdn=45 spd=15"
