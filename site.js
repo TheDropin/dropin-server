@@ -41,11 +41,16 @@ exports.logout = function (req, res) {
     res.redirect('/');
 };
 
+function loggedIn(req, res, next) {
+    if (req.user) {
+        next();
+    } else {
+        res.redirect('/login');
+    }
+}
+
 exports.account = [
-    passport.authenticate('bearer', {
-        session: false,
-        failWithError: true
-    }),
+    loggedIn,
     function (req, res) {
         var result = {
             username: req.user.username,
