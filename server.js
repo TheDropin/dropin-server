@@ -1,16 +1,10 @@
 var express = require('express');
 
-var expressLayouts = require('express-ejs-layouts');
-
 var mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 
 var bodyParser = require('body-parser');
-var ejs = require('ejs');
 var morgan = require('morgan');
-var cookieParser = require('cookie-parser');
-var session = require('express-session');
-var flash = require('connect-flash');
 
 var passport = require('passport');
 require('./config/passport')(passport);
@@ -24,24 +18,12 @@ mongoose.connect(db_url, function (error) {
 
 var app = express();
 
-app.set('view engine', 'ejs');
-app.use(expressLayouts);
-
 app.use(morgan('dev')); // log every request to the console
-app.use(cookieParser()); // read cookies (needed for auth)
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-
-app.use(session({
-    secret: 'keyboard cat',
-    resave: true,
-    saveUninitialized: true
-}));
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.use(express.static(__dirname + '/'));
 
