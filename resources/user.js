@@ -2,7 +2,8 @@ var mongoose = require('mongoose');
 
 var User = require('../models/user');
 var jwt = require('jwt-simple');
-var config = require('../config');
+
+var secret = process.env.JWT_SECRET || 'TEST SECRET';
 
 
 exports.postUsers = function (req, res) {
@@ -82,7 +83,7 @@ module.exports.authenticate = function(req, res) {
             user.comparePassword(req.body.password, function (err, isMatch) {
                 if (isMatch && !err) {
 
-                    var token = jwt.encode(user, config.secret);
+                    var token = jwt.encode(user, secret);
 
                     res.json({
                         success: true,

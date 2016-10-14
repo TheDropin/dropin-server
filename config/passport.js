@@ -1,4 +1,4 @@
-var secret = process.env.JWT_SECRET || 'TEST SECRET ^5f85bf&F76%F876g5h76g980';
+var secret = process.env.JWT_SECRET || 'TEST SECRET';
 
 var JwtStrategy = require('passport-jwt').Strategy,
     ExtractJwt = require('passport-jwt').ExtractJwt;
