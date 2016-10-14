@@ -1,4 +1,5 @@
 var express = require('express');
+
 var expressLayouts = require('express-ejs-layouts');
 
 var mongoose = require('mongoose');
@@ -12,6 +13,7 @@ var session = require('express-session');
 var flash = require('connect-flash');
 
 var passport = require('passport');
+require('./config/passport')(passport);
 
 var db_url = process.env.MONGODB_URI || 'mongodb://localhost:27017/dropin';
 
@@ -62,6 +64,8 @@ api.get('/', function (req, res) {
 var locationResource = require('./resources/location');
 var userResource = require('./resources/user');
 
+var jwtAuth = passport.authenticate('jwt', { session: false});
+
 api.route('/location')
     .post(locationResource.post)
     .get(locationResource.get);
@@ -72,10 +76,11 @@ api
 
 api.route('/users')
     .post(userResource.postUsers)
-    .get(userResource.getUsers);
+    .get([jwtAuth, userResource.getUsers]);
 
 api.route('/users/:id')
-    .delete(userResource.deleteUser);
+//    .get([jwtAuth, userResource.getUser])
+    .delete([jwtAuth, userResource.deleteUser]);
 
 app.use('/api/v1', api);
 
