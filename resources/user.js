@@ -2,13 +2,11 @@ var mongoose = require('mongoose');
 
 var User = require('../models/user');
 var jwt = require('jwt-simple');
+var config = require('../config');
 
 
 exports.postUsers = function (req, res) {
-    var user = new User({
-        username: req.body.username,
-        password: req.body.password
-    });
+    var user = new User(req.body);
 
     user.save(function (err, result) {
         if (err) {
@@ -38,10 +36,7 @@ module.exports.signup = function (req, res) {
             message: 'Please post username and password.'
         });
     } else {
-        var newUser = new User({
-            name: req.body.name,
-            password: req.body.password
-        });
+        var newUser = new User(req.body);
         // save the user
         newUser.save(function (err) {
             if (err) {
@@ -52,15 +47,28 @@ module.exports.signup = function (req, res) {
             }
             res.json({
                 success: true,
-                message: 'Successful created new user.'
+                message: 'Successful created new user.',
+                user: {
+                    _id: newUser._id
+                }
             });
         });
     }
 };
 
+module.exports.deleteUser = function(req, res) {
+    User.findByIdAndRemove(req.param.id)
+        .then(function(user){
+            res.send(user);
+        })
+        .catch(function(err){
+            res.status(404).send(err);
+        });
+};
+
 module.exports.authenticate = function(req, res) {
     User.findOne({
-        name: req.body.username
+        username: req.body.username
     }, function (err, user) {
         if (err) throw err;
 
@@ -93,7 +101,7 @@ module.exports.authenticate = function(req, res) {
 
 module.exports.getTestUser = function (req, res) {
     req.body = {
-        name: "testUser",
+        username: "testUser",
         password: "testUser"
     };
     authenticate(req, res);

@@ -74,6 +74,9 @@ api.route('/users')
     .post(userResource.postUsers)
     .get(userResource.getUsers);
 
+api.route('/users/:id')
+    .delete(userResource.deleteUser);
+
 app.use('/api/v1', api);
 
 var server = app.listen(process.env.PORT || 5000, function () {
