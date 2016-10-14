@@ -1,15 +1,17 @@
 var express = require('express');
 var expressLayouts = require('express-ejs-layouts');
+
 var mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
+
 var bodyParser = require('body-parser');
 var ejs = require('ejs');
-var morgan       = require('morgan');
+var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
-var session      = require('express-session');
-var flash    = require('connect-flash');
+var session = require('express-session');
+var flash = require('connect-flash');
 
 var passport = require('passport');
-var authController = require('./controllers/auth');
 
 var db_url = process.env.MONGODB_URI || 'mongodb://localhost:27017/dropin';
 
@@ -31,7 +33,11 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+app.use(session({
+    secret: 'keyboard cat',
+    resave: true,
+    saveUninitialized: true
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -41,25 +47,15 @@ app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin,X-Requested-With,Content-Type,Accept,Authorization,Geo-Position");
     res.header("Access-Control-Allow-Methods", "HEAD,GET,POST,PUT,DELETE,OPTIONS,TRACE,CONNECT");
-    
+
     next();
 });
-
-var site = require('./site');
-
-app.get('/', site.index);
-app.get('/register', site.registerForm);
-app.post('/register', site.register);
-app.get('/login', site.loginForm);
-app.post('/login', site.login);
-app.get('/logout', site.logout);
-app.get('/account', [authController.checkLocalAuth, site.account]);
 
 var api = express.Router();
 
 api.get('/', function (req, res) {
     res.status(200).json({
-        msg: 'OK'
+        message: 'OK'
     });
 });
 
@@ -70,9 +66,13 @@ api.route('/location')
     .post(locationResource.post)
     .get(locationResource.get);
 
+api
+    .post('/signup', userResource.signup)
+    .post('/authenticate', userResource.authenticate);
+
 api.route('/users')
-  .post(userResource.postUsers)
-  .get(userResource.getUsers);
+    .post(userResource.postUsers)
+    .get(userResource.getUsers);
 
 app.use('/api/v1', api);
 

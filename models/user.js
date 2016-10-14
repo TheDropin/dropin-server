@@ -1,50 +1,48 @@
 var mongoose = require('mongoose');
-var bcrypt = require('bcrypt-nodejs');
-
-// Define our user schema
-var UserSchema = new mongoose.Schema({
-    username: {
+var Schema = mongoose.Schema;
+var bcrypt = require('bcrypt');
+ 
+// Thanks to http://blog.matoski.com/articles/jwt-express-node-mongoose/
+ 
+var UserSchema = new Schema({
+  username: {
         type: String,
         unique: true,
         required: true
     },
-    email: {
-        type: String,
-        require: true
-    },
-    password: {
+  password: {
         type: String,
         required: true
     }
 });
-
-// Execute before each user.save() call
-UserSchema.pre('save', function (callback) {
+ 
+UserSchema.pre('save', function (next) {
     var user = this;
-
-    // Break out if the password hasn't changed
-    if (!user.isModified('password')) return callback();
-
-    // Password changed so we need to hash it
-    bcrypt.genSalt(5, function (err, salt) {
-        if (err) return callback(err);
-
-        bcrypt.hash(user.password, salt, null, function (err, hash) {
-            if (err) return callback(err);
-            user.password = hash;
-            callback();
+    if (this.isModified('password') || this.isNew) {
+        bcrypt.genSalt(10, function (err, salt) {
+            if (err) {
+                return next(err);
+            }
+            bcrypt.hash(user.password, salt, function (err, hash) {
+                if (err) {
+                    return next(err);
+                }
+                user.password = hash;
+                next();
+            });
         });
-    });
+    } else {
+        return next();
+    }
 });
-
-UserSchema.methods.comparePassword = function (passw, callback) {
+ 
+UserSchema.methods.comparePassword = function (passw, cb) {
     bcrypt.compare(passw, this.password, function (err, isMatch) {
         if (err) {
-            return callback(err);
+            return cb(err);
         }
-        callback(null, isMatch);
+        cb(null, isMatch);
     });
 };
-
-// Export the Mongoose model
+ 
 module.exports = mongoose.model('User', UserSchema);
