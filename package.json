@@ -4,7 +4,8 @@
   "description": "crowd-sourced database of located public amenities",
   "main": "server.js",
   "scripts": {
-    "test": "jasmine-node spec/*.spec.js"
+    "test": "jasmine-node spec/*.spec.js",
+    "postinstall": "bower install"
   },
   "author": "Joe Beuckman <joebeuckman@gmail.com>",
   "license": "FREEDOM",
@@ -31,9 +32,6 @@
     "morgan": "^1.7.0",
     "passport": "^0.3.2",
     "passport-jwt": "^2.1.0"
-  },
-  "scripts": {
-    "postinstall": "bower install"
   },
   "engines": {
     "node": ">=0.10.25"
