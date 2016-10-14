@@ -1,9 +1,17 @@
-angular.module('dropin-app', []) //['ui.bootstrap']);
+angular.module('dropinAdmin', ['ui.bootstrap', 'ui.router'])
 
-.config(function(){
-    
+.run(function($state){
 })
+.config(function($stateProvider, $urlRouterProvider){
+    $stateProvider
+        .state('home', {
+            url: '/',
+            templateUrl: 'templates/login.html'
+        })
+        .state('login', {
+            url: '/',
+            templateUrl: 'templates/login.html'
+        });
 
-.run(function(){
-    
+    $urlRouterProvider.otherwise("/");
 });
