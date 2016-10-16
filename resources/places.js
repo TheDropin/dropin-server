@@ -1,4 +1,4 @@
-var Location = require('../models/location');
+var Location = require('../models/place');
 var util = require('../util');
 
 module.exports.get = function (req, res) {

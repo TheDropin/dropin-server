@@ -1,7 +1,7 @@
 require('jasmine-expect');
 var request = require('supertest');
 
-describe('locations', function () {
+describe('places', function () {
 
     var server, location_id;
     var prefix = "/api/v1";
@@ -14,7 +14,7 @@ describe('locations', function () {
         server.close();
     });
 
-    it('can post a location', function(done) {
+    it('can post a place', function(done) {
         
         var lat = 44.9 + (Math.random() - 0.5);
         var lon = -93.2 + (Math.random() - 0.5);
@@ -28,7 +28,7 @@ describe('locations', function () {
         };
         
         request(server)
-            .post(prefix+'/location')
+            .post(prefix+'/places')
             .send(loc)
             .expect(201)
             .end(function(err, resp){
@@ -39,14 +39,14 @@ describe('locations', function () {
             });
     });
     
-    it('requires geo header or bounds to find locs', function(done){
+    it('requires geo header or bounds to find places', function(done){
         
         request(server)
-            .get(prefix+'/location')
+            .get(prefix+'/places')
             .expect(400, done);
     });
     
-    it('can get nearby locations', function(done) {
+    it('can get nearby places', function(done) {
         
         var lat = 44.9 + (Math.random() - 0.5);
         var lon = -93.2 + (Math.random() - 0.5);
@@ -56,7 +56,7 @@ describe('locations', function () {
         };
         
         request(server)
-            .get(prefix+'/location')
+            .get(prefix+'/places')
             .set(geo_header)
             .end(function(err, resp){
                 expect(err).toBeNull();
@@ -67,7 +67,7 @@ describe('locations', function () {
         
     });
     
-    it('can get locations within rect', function(done){
+    it('can get places within rect', function(done){
         
         var bounds = {
             xmin: -94,
@@ -77,7 +77,7 @@ describe('locations', function () {
         };
         
         request(server)
-            .get(prefix+'/location')
+            .get(prefix+'/places')
             .query(bounds)
             .end(function(err, resp){
                 expect(err).toBeNull();
@@ -89,10 +89,10 @@ describe('locations', function () {
             });
     });
     
-    it('can delete a location', function(done){
+    it('can delete a place', function(done){
         
         request(server)
-            .delete(prefix+'/location/'+location_id)
+            .delete(prefix+'/places/'+location_id)
             .end(function(err, resp){
                 expect(err).toBeNull();
                 done();

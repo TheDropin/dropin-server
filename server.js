@@ -43,14 +43,14 @@ api.get('/', function (req, res) {
     });
 });
 
-var locationResource = require('./resources/location');
+var placesResource = require('./resources/places');
 var userResource = require('./resources/user');
 
 var jwtAuth = passport.authenticate('jwt', { session: false});
 
-api.route('/location')
-    .post(locationResource.post)
-    .get(locationResource.get);
+api.route('/places')
+    .post(placesResource.post)
+    .get(placesResource.get);
 
 api
     .post('/signup', userResource.signup)

@@ -1,5 +1,11 @@
 angular.module('dropinAdmin').factory('DropinService', function($http){
     
+    function getPlaces() {
+        
+        return $http.get('/api/v1/places');
+        
+    }
+    
     function authenticate(user) {
         
         return $http.post('/api/v1/authenticate', user)
@@ -28,6 +34,7 @@ angular.module('dropinAdmin').factory('DropinService', function($http){
         signup: signup,
         logout: function() {
             delete $http.defaults.headers.common.Authorization;
-        }
+        },
+        getPlaces: getPlaces
     };
 })
