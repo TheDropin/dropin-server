@@ -2,10 +2,10 @@ angular.module('dropinAdmin').factory('DropinService', function($http){
     
     function authenticate(user) {
         
-        $http.post('/api/v1/authenticate', user)
+        return $http.post('/api/v1/authenticate', user)
             .then(function(response){
                 console.log(response);
-//    $http.defaults.headers.common.Authorization = token;
+                $http.defaults.headers.common.Authorization = response.data.token;
             })
             .catch(function(err){
                 console.error(err);
@@ -14,7 +14,7 @@ angular.module('dropinAdmin').factory('DropinService', function($http){
     
     function signup(user) {
         
-        $http.post('/api/v1/signup', user)
+        return $http.post('/api/v1/signup', user)
             .then(function(response){
                 console.log(response);
             })
