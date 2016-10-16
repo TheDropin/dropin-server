@@ -3,11 +3,6 @@ angular.module('dropinAdmin').factory('googleMapsLoader', function ($q) {
     var mapsApiDeferred = $q.defer();
     var mapLoaded = false;
 
-    function onDeviceReady () {
-        document.addEventListener("online", loadMapsApi, false);
-        document.addEventListener("resume", loadMapsApi, false);
-        loadMapsApi();
-    }
      
     function encodeUrlParams(params) {
         var pairs = [];
@@ -70,7 +65,9 @@ angular.module('dropinAdmin').factory('googleMapsLoader', function ($q) {
             
             key = _key;
             
-            document.addEventListener("deviceready", onDeviceReady, false);
+//            document.addEventListener("deviceready", onDeviceReady, false);
+            loadMapsApi();
+
             return mapsApiDeferred.promise;
         },
         mapsApiPromise: mapsApiDeferred.promise,

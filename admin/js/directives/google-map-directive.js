@@ -1,4 +1,4 @@
-angular.module('dropinAdmin').directive("googleMap", function ($rootScope, $ionicLoading, $compile, googleMapsLoader, $ionicPlatform) {
+angular.module('dropinAdmin').directive("googleMap", function ($rootScope, $compile, googleMapsLoader) {
 
     var $scope, map;
 
@@ -41,13 +41,13 @@ console.log('link map')
                 latitude: 44 + (59 / 60),
                 longitude: -93 - (16 / 60)
             };
-            
+/*            
             $ionicPlatform.ready(function(){
                 if (device.isVirtual) {
                     initialize(element, attrs, defaultPosition);                    
                 }
             })
-
+*/
             googleMapsLoader.mapsApiPromise.then(
                 function () {
                     console.log('mapsApiPromise.then');
@@ -78,7 +78,7 @@ console.log('link map')
                     initialize(element, attrs, defaultPosition);
                 });
 
-            initialize(element, attrs);
+//            initialize(element, attrs);
         }
     };
 

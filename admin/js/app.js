@@ -12,7 +12,7 @@ angular.module('dropinAdmin', ['ui.bootstrap', 'ui.router'])
             templateUrl: 'templates/login.html'
         })
         .state('places', {
-            url: '/',
+            url: '/places',
             templateUrl: 'templates/places.html',
             controller: 'PlacesController'
         })

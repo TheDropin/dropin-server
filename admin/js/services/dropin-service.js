@@ -25,6 +25,9 @@ angular.module('dropinAdmin').factory('DropinService', function($http){
     
     return {
         authenticate: authenticate,
-        signup: signup
+        signup: signup,
+        logout: function() {
+            delete $http.defaults.headers.common.Authorization;
+        }
     };
 })
