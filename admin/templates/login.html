@@ -1,21 +1,18 @@
-<div class="panel panel-default">
-    <div class="panel-heading">The Dropin Admin</div>
+<div>
+    <label for="username">Username:</label>
+    <input type="text" name="username" id="username" ng-model="user.username">
+</div>
+<div>
 
-    <div class="panel-body">
+    <label for="pwd">Password:</label>
+    <input type="password" name="password" id="password" ng-model="user.password">
+</div>
+<div>
 
-        <form action="/login" method="post">
-            <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" class="form-control" name="username" id="username">
-            </div>
-            <div class="form-group">
-                <label for="pwd">Password:</label>
-                <input type="password" class="form-control" name="password" id="password">
-            </div>
 
-            <button type="submit" class="btn btn-default">Submit</button>
+    <button ng-click="authenticate()">Submit</button>
+</div>
 
-        </form>
-
-    </div>
+<div>
+    <a ui-sref="signup">get an account</a>
 </div>

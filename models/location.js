@@ -30,6 +30,11 @@ var Schema = new mongoose.Schema({
         type: String,
         required: true,
         default: "new"
+    },
+    source: {
+        type: Object,
+        required: true,
+        default: "DropIn App"
     }
 }, {
     timestamps: true

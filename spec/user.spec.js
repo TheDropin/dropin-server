@@ -30,6 +30,7 @@ describe('users', function () {
             .end(function(err, res){
                 expect(err).toBeNull();
             
+                expect(res.status).toEqual(201);
                 expect(res.body.success).toBeTrue();
                 userId = res.body.user._id;
             
