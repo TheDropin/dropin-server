@@ -7,31 +7,19 @@ angular.module('dropinAdmin').controller('PlacesController', function($scope, Dr
         $scope.map = map;
 
         map.addListener('idle', function () {
-            console.log('idle');
 
             var bounds = map.getBounds().toJSON();
             var query = {
-                xmin: bounds['west'],
+                xmin: bounds.west,
                 xmax: bounds.east,
                 ymin: bounds.south,
                 ymax: bounds.north
             };
-            console.log(JSON.stringify(query));
             
-            DropinService.getPlaces().then(function(response){
-                console.log(response);
+            DropinService.getPlacesIn(query).then(function(response){
+                updateMarkers(response);
             });
-/*
-            MngisService.getStopsWithinBounds(query,
-                function (resp) {
-                    //                console.dir(Object.keys(resp));
-                    updateMarkers(resp);
-                },
-                function (err) {
-                    console.dir(JSON.stringify(err));
-                }
-            );
-*/
+
         });
 
         navigator.geolocation.getCurrentPosition(
@@ -45,36 +33,36 @@ angular.module('dropinAdmin').controller('PlacesController', function($scope, Dr
     });
 
 
-    function updateMarkers(stops) {
+    function updateMarkers(places) {
 
-        var new_siteids = stops.map(function (stop) {
-            return "" + stop.attributes.siteid;
+        var new_ids = places.map(function (place) {
+            return "" + place._id;
         });
 
-        var marked_siteids = [];
+        var marked_ids = [];
         var delete_count = 0;
 
-        for (var siteid in markers) {
-            var index = new_siteids.indexOf(siteid);
+        for (var id in markers) {
+            var index = new_ids.indexOf(id);
 
             if (index == -1) {
-                var marker = markers[siteid];
+                var marker = markers[id];
                 marker.setMap(null);
-                delete markers[siteid];
+                delete markers[id];
                 delete_count++;
             } else {
-                marked_siteids.push(siteid);
+                marked_ids.push(id);
             }
         }
 
-        stops.forEach(function (stop) {
-            addMarker(stop);
+        places.forEach(function (place) {
+            addMarker(place);
         })
     }
 
     function addMarker(place) {
 
-        if (markers[place.attributes.siteid]) {
+        if (markers[place._id]) {
             return;
         }
 
@@ -86,7 +74,7 @@ angular.module('dropinAdmin').controller('PlacesController', function($scope, Dr
         var marker = new google.maps.Marker({
             position: myLatLng,
             map: map,
-            icon: PaletteService.getMapPinForPlace(place),
+//            icon: PaletteService.getMapPinForPlace(place),
             title: 'Hello World!'
         });
 
@@ -94,7 +82,7 @@ angular.module('dropinAdmin').controller('PlacesController', function($scope, Dr
             $rootScope.viewPlace(place);
         });
 
-        markers[place.attributes.siteid] = marker;
+        markers[place._id] = marker;
     }
 
 });

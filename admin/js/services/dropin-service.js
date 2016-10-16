@@ -1,9 +1,26 @@
-angular.module('dropinAdmin').factory('DropinService', function($http){
+angular.module('dropinAdmin').factory('DropinService', function($q, $http){
     
     function getPlaces() {
         
         return $http.get('/api/v1/places');
         
+    }
+        
+    function getPlacesIn(bounds) {
+
+        var def = $q.defer();
+
+        $http.get("/api/v1/places",{ 
+            params: bounds
+        })
+            .then(function(res){
+                def.resolve(res.data.content);
+            })
+            .catch(function(err){
+                console.error(err);
+            });
+        
+        return def.promise;
     }
     
     function authenticate(user) {
@@ -35,6 +52,7 @@ angular.module('dropinAdmin').factory('DropinService', function($http){
         logout: function() {
             delete $http.defaults.headers.common.Authorization;
         },
-        getPlaces: getPlaces
+        getPlaces: getPlaces,
+        getPlacesIn: getPlacesIn
     };
 })
