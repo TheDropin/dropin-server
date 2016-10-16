@@ -11,7 +11,7 @@ exports.postUsers = function (req, res) {
 
     user.save(function (err, result) {
         if (err) {
-            res.send(err);
+            res.status(500).json(err);
         }
         
         res.json(result);
@@ -32,7 +32,7 @@ exports.getUsers = function (req, res) {
 
 module.exports.signup = function (req, res) {
     if (!req.body.username || !req.body.password) {
-        res.json({
+        res.status(400).json({
             success: false,
             message: 'Please post username and password.'
         });
@@ -46,7 +46,7 @@ module.exports.signup = function (req, res) {
                     message: 'Username already exists.'
                 });
             }
-            res.json({
+            res.status(201).json({
                 success: true,
                 message: 'Successful created new user.',
                 user: {
