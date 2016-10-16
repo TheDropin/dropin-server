@@ -67,8 +67,8 @@ angular.module('dropinAdmin').controller('PlacesController', function($scope, Dr
         }
 
         var myLatLng = {
-            lat: place.geometry.y,
-            lng: place.geometry.x
+            lat: place.geometry.coordinates[0],
+            lng: place.geometry.coordinates[1]
         };
 
         var marker = new google.maps.Marker({
