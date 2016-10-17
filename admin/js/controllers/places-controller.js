@@ -1,4 +1,4 @@
-angular.module('dropinAdmin').controller('PlacesController', function($scope, DropinService){
+angular.module('dropinAdmin').controller('PlacesController', function($scope, DropinService, $state){
    
     var map, markers = {};
 
@@ -79,10 +79,16 @@ angular.module('dropinAdmin').controller('PlacesController', function($scope, Dr
         });
 
         marker.addListener('click', function () {
-            $rootScope.viewPlace(place);
+            openPlace(place);
         });
 
         markers[place._id] = marker;
     }
+    
+    function openPlace(place) {
+console.log('openPlace()')
+        $state.go('place-detail', {id:place._id});
+    }
+    
 
 });

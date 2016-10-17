@@ -1,18 +1,21 @@
-<div>
-    <label for="username">Username:</label>
-    <input type="text" name="username" id="username" ng-model="user.username">
-</div>
-<div>
+<div class="well">
+    <div>
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username" ng-model="user.username">
+    </div>
+    <div>
 
-    <label for="pwd">Password:</label>
-    <input type="password" name="password" id="password" ng-model="user.password">
-</div>
-<div>
+        <label for="pwd">Password:</label>
+        <input type="password" name="password" id="password" ng-model="user.password">
+    </div>
+    <div>
 
 
-    <button ng-click="authenticate()">Submit</button>
-</div>
+        <button ng-click="authenticate()">Submit</button>
+    </div>
 
-<div>
-    <a ui-sref="signup">get an account</a>
+    <div>
+        <a ui-sref="signup">get an account</a>
+    </div>
+
 </div>

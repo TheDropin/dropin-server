@@ -1,4 +1,4 @@
-angular.module('dropinAdmin', ['ui.bootstrap', 'ui.router'])
+angular.module('dropinAdmin', ['ui.router'])
 
 .run(function($state, googleMapsLoader){
 
@@ -15,6 +15,11 @@ angular.module('dropinAdmin', ['ui.bootstrap', 'ui.router'])
             url: '/places',
             templateUrl: 'templates/places.html',
             controller: 'PlacesController'
+        })
+        .state('place-detail', {
+            url: '/place/:id',
+            templateUrl: 'templates/place.detail.html',
+            controller: 'PlaceDetailController'
         })
         .state('signup', {
             url: '/signup',

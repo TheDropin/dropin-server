@@ -1,8 +1,11 @@
 angular.module('dropinAdmin').factory('DropinService', function($q, $http){
     
+    var API_URL = "https://the-dropin.herokuapp.com";
+    var API_PREFIX = "/api/v1";
+    
     function getPlaces() {
         
-        return $http.get('/api/v1/places');
+        return $http.get(API_URL+API_PREFIX+'/places');
         
     }
         
@@ -10,7 +13,7 @@ angular.module('dropinAdmin').factory('DropinService', function($q, $http){
 
         var def = $q.defer();
 
-        $http.get("/api/v1/places",{ 
+        $http.get(API_URL+API_PREFIX+"/places",{ 
             params: bounds
         })
             .then(function(res){
@@ -25,7 +28,7 @@ angular.module('dropinAdmin').factory('DropinService', function($q, $http){
     
     function authenticate(user) {
         
-        return $http.post('/api/v1/authenticate', user)
+        return $http.post(API_URL+API_PREFIX+'/authenticate', user)
             .then(function(response){
                 console.log(response);
                 $http.defaults.headers.common.Authorization = response.data.token;
@@ -37,7 +40,7 @@ angular.module('dropinAdmin').factory('DropinService', function($q, $http){
     
     function signup(user) {
         
-        return $http.post('/api/v1/signup', user)
+        return $http.post(API_URL+API_PREFIX+'/signup', user)
             .then(function(response){
                 console.log(response);
             })

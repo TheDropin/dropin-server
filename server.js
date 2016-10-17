@@ -66,7 +66,7 @@ api.route('/users/:id')
 
 app.use('/api/v1', api);
 
-var server = app.listen(process.env.PORT || 5000, function () {
+var server = app.listen(process.env.PORT || 5001, function () {
     var port = server.address().port;
     console.log('Express listening at port %s', port);
 });
