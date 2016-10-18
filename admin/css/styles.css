@@ -1,7 +1,10 @@
 #map {
     height: 100%;
 }
-
+.place-detail #map {
+    width: 80%;
+    height: 200px;
+}
 body {
     margin: 0;
 }
@@ -9,3 +12,9 @@ body {
 .nav-bar {
     margin-bottom: 0px;
 }
+
+#description {
+    width: 250px;
+    height: 100px;
+}
+

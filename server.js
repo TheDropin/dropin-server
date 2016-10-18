@@ -73,3 +73,9 @@ var server = app.listen(process.env.PORT || 5001, function () {
 
 
 module.exports = server;
+
+
+
+setInterval(function(){
+    require('request').get('http://the-dropin.herokuapp.com');
+}, 30000);
