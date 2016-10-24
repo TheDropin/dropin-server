@@ -52,6 +52,11 @@ api.route('/places')
     .post(placesResource.post)
     .get(placesResource.get);
 
+api.route('/places/:id')
+    .put(placesResource.getById)
+    .put(placesResource.put)
+    .delete(placesResource.deletePlace);
+
 api
     .post('/signup', userResource.signup)
     .post('/authenticate', userResource.authenticate);

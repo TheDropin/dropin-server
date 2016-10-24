@@ -3,7 +3,7 @@ var request = require('supertest');
 
 describe('places', function () {
 
-    var server, location_id;
+    var server, place_id, place;
     var prefix = "/api/v1";
     
     beforeEach(function () {
@@ -34,7 +34,7 @@ describe('places', function () {
             .end(function(err, resp){
                 expect(err).toBeNull();
             
-                location_id = resp._id;
+                place_id = resp.body._id;
                 done();
             });
     });
@@ -89,12 +89,38 @@ describe('places', function () {
             });
     });
     
+    it('can get a place by id', function(done){
+        
+        request(server)
+            .get(prefix+'/places/'+place_id)
+            .end(function(err, resp){
+            
+                console.log(resp.body);
+            
+                expect(err).toEqual(null);
+                done();
+            });
+
+    });
+    
+    it('can update a place', function(done){
+        
+        request(server)
+            .put(prefix+'/places/'+place_id)
+            .send(place)
+            .end(function(err, resp){
+                expect(err).toEqual(null);
+                done();
+            });
+
+    });
+    
     it('can delete a place', function(done){
         
         request(server)
-            .delete(prefix+'/places/'+location_id)
+            .delete(prefix+'/places/'+place_id)
             .end(function(err, resp){
-                expect(err).toBeNull();
+                expect(resp.status).toEqual(200);
                 done();
             });
 

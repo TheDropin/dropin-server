@@ -56,6 +56,46 @@ module.exports.get = function (req, res) {
 };
 
 
+module.exports.put = function (req, res) {
+    
+    var loc = req.body;
+
+    Location.findByIdAndUpdate(req.param.id, loc, function (err, resp) {
+
+        if (err) {
+            return res.status(500).json(err);
+        }
+
+        res.json(resp);
+    });
+};
+
+module.exports.getById = function(req, res) {
+    
+    Location.findById(req.param.id, function(err, resp){
+
+        if (err) {
+            return res.status(500).json(err);
+        }
+
+        res.json(resp);
+    });
+};
+
+
+module.exports.deletePlace = function (req, res) {
+    
+    Location.findByIdAndRemove(req.param.id, function (err, resp) {
+
+        if (err) {
+            return res.status(500).json(err);
+        }
+
+        res.json(resp);
+    });
+};
+
+
 module.exports.post = function (req, res) {
     var loc = new Location(req.body);
 
