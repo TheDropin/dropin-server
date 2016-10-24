@@ -53,7 +53,7 @@ api.route('/places')
     .get(placesResource.get);
 
 api.route('/places/:id')
-    .put(placesResource.getById)
+    .get(placesResource.getById)
     .put(placesResource.put)
     .delete(placesResource.deletePlace);
 

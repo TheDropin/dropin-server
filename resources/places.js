@@ -1,4 +1,4 @@
-var Location = require('../models/place');
+var Place = require('../models/place');
 var util = require('../util');
 
 module.exports.get = function (req, res) {
@@ -12,7 +12,7 @@ module.exports.get = function (req, res) {
     var geo = util.getGeoHeader(req);
     
     if (bounds) {
-        Location.find({
+        Place.find({
             'geometry.coordinates': {
                 $geoWithin: {
                     $box: [
@@ -32,7 +32,7 @@ module.exports.get = function (req, res) {
     }
     else if (geo) {
     
-        Location.aggregate().near({
+        Place.aggregate().near({
             near: geo.coordinates,
             distanceField: "dist.calculated",
             maxDistance: 1000,
@@ -60,7 +60,7 @@ module.exports.put = function (req, res) {
     
     var loc = req.body;
 
-    Location.findByIdAndUpdate(req.param.id, loc, function (err, resp) {
+    Place.findByIdAndUpdate(req.params.id, loc, function (err, resp) {
 
         if (err) {
             return res.status(500).json(err);
@@ -72,7 +72,7 @@ module.exports.put = function (req, res) {
 
 module.exports.getById = function(req, res) {
     
-    Location.findById(req.param.id, function(err, resp){
+    Place.findById(req.params.id, function(err, resp){
 
         if (err) {
             return res.status(500).json(err);
@@ -85,7 +85,7 @@ module.exports.getById = function(req, res) {
 
 module.exports.deletePlace = function (req, res) {
     
-    Location.findByIdAndRemove(req.param.id, function (err, resp) {
+    Place.findByIdAndRemove(req.params.id, function (err, resp) {
 
         if (err) {
             return res.status(500).json(err);
@@ -97,7 +97,7 @@ module.exports.deletePlace = function (req, res) {
 
 
 module.exports.post = function (req, res) {
-    var loc = new Location(req.body);
+    var loc = new Place(req.body);
 
     loc.save(function (err, resp) {
 
