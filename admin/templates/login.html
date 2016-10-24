@@ -1,21 +1,22 @@
-<div class="well">
-    <div>
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username" ng-model="user.username">
+<h1>Login</h1>
+<form name="signupForm" ng-submit="authenticate(signupForm.$valid)" novalidate>
+    
+    <div class="form-group">
+        <label>Username:</label>
+        <input type="text" name="username" class="form-control" ng-model="user.username" required>
     </div>
-    <div>
 
-        <label for="pwd">Password:</label>
-        <input type="password" name="password" id="password" ng-model="user.password">
+    <div class="form-group">
+        <label>Password:</label>
+        <input type="password" name="password" class="form-control" ng-model="user.password" required>
     </div>
-    <div>
 
-
-        <button ng-click="authenticate()">Submit</button>
+    <div class="form-group">
+        <button class="btn btn-primary" ng-disabled="userForm.$invalid">Submit</button>
     </div>
 
     <div>
         <a ui-sref="signup">get an account</a>
     </div>
 
-</div>
+</form>

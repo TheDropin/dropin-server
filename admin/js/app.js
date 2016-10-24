@@ -20,9 +20,9 @@ angular.module('dropinAdmin', ['ui.router'])
             url: '/place-detail',
             templateUrl: 'templates/place-detail.html',
             controller: 'PlaceDetailController',
-        params: {
-            place: null
-        }
+            params: {
+                place: null
+            }
         })
         .state('signup', {
             url: '/signup',
