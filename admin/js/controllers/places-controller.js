@@ -1,4 +1,4 @@
-angular.module('dropinAdmin').controller('PlacesController', function($scope, AccountService, $state){
+angular.module('dropinAdmin').controller('PlacesController', function($scope, DropinService, $state){
    
     var map, markers = {};
 
@@ -16,7 +16,7 @@ angular.module('dropinAdmin').controller('PlacesController', function($scope, Ac
                 ymax: bounds.north
             };
             
-            AccountService.getPlacesIn(query).then(function(response){
+            DropinService.getPlacesIn(query).then(function(response){
                 updateMarkers(response);
             });
 

@@ -1,23 +1,23 @@
-angular.module('dropinAdmin').controller('AccountController', function($scope, AccountService, $state){
+angular.module('dropinAdmin').controller('AccountController', function($scope, DropinService, $state){
     
     $scope.user = {};
 
     $scope.signup = function() {
-        AccountService.signup($scope.user)
+        DropinService.signup($scope.user)
             .then(function(response){
                 $state.go('login');
             });
     };
     
     $scope.authenticate = function() {
-        AccountService.authenticate($scope.user)
+        DropinService.authenticate($scope.user)
             .then(function(response){
                 $state.go('places');
             });
     };
     
     $scope.logout = function() {
-        AccountService.logout()
+        DropinService.logout()
             .then(function(response){
                 $state.go('login');
             });
