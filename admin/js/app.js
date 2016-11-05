@@ -1,6 +1,9 @@
 angular.module('dropinAdmin', ['ui.router', 'DropinService'])
 
-.run(function($state, googleMapsLoader){
+.run(function($state, googleMapsLoader, DropinService){
+
+    var SERVER_URL = "https://the-dropin.herokuapp.com";
+    DropinService.setUrl(SERVER_URL);
 
     googleMapsLoader.init("AIzaSyBaHHU9b4tqifwDu9EAKdwpgAERrWNmZas");
 
