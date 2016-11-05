@@ -19,10 +19,10 @@ angular.module('dropinAdmin', ['ui.router', 'DropinService'])
             templateUrl: 'templates/places.html',
             controller: 'PlacesController'
         })
-        .state('place-detail', {
-            url: '/place-detail',
-            templateUrl: 'templates/place-detail.html',
-            controller: 'PlaceDetailController',
+        .state('place-edit', {
+            url: '/place-edit',
+            templateUrl: 'templates/place-edit.html',
+            controller: 'PlaceEditController',
             params: {
                 place: null
             }

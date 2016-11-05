@@ -1,7 +1,7 @@
 #map {
     height: 100%;
 }
-.place-detail #map {
+.place-edit #map {
     width: 80%;
     height: 200px;
 }

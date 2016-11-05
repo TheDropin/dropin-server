@@ -86,9 +86,7 @@ angular.module('dropinAdmin').controller('PlacesController', function($scope, Dr
     }
     
     function openPlace(place) {
-console.log('openPlace()')
-console.log(place)
-        $state.go('place-detail', {place:place});
+        $state.go('place-edit', {place:place});
     }
     
 
