@@ -4,6 +4,7 @@ angular.module('dropinAdmin')
     
     $scope.place = $stateParams.place;
 
+    var placeholder;
     
     function addPlaceholderMarker(place) {
 
@@ -12,7 +13,7 @@ angular.module('dropinAdmin')
             lng: place.geometry.coordinates[1]
         };
 
-        placeholder = new google.maps.Marker({
+        var placeholder = new google.maps.Marker({
             position: myLatLng,
             map: map,
             draggable: true,
@@ -20,37 +21,24 @@ angular.module('dropinAdmin')
             title: 'Hello World!'
         });
 
-        return myLatLng;
+        return placeholder;
     }
     
     $scope.$on('MAP_LOADED', function (e, _map) {
         map = _map;
         $scope.map = map;
         
-        var placeLatLng = addPlaceholderMarker($scope.place);
-        map.setCenter(placeLatLng);
-
-        map.addListener('idle', function () {
-
-            var bounds = map.getBounds().toJSON();
-            var query = {
-                xmin: bounds.west,
-                xmax: bounds.east,
-                ymin: bounds.south,
-                ymax: bounds.north
-            };
-
+        placeholder = addPlaceholderMarker($scope.place);
+        map.setCenter(placeholder.getPosition());
+        
+        placeholder.addListener('dragend', function(){
+            map.panTo(placeholder.getPosition());
         });
-
-        navigator.geolocation.getCurrentPosition(
-            function (loc) {
-                console.log(JSON.stringify(loc));
-            }, function (err) {
-                console.error('geo error');
-                console.log(JSON.stringify(err));
-            }
-        );
     });
     
+    
+    $scope.savePlace = function() {
+        
+    }
     
 });
