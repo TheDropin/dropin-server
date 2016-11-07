@@ -3,11 +3,21 @@
     
     <google-map></google-map>
     
-    <div>
-        <label for="description">Description:</label>
-        <textarea name="description" id="description" ng-model="place.description"/>
+    <div class="form-group">
+        <label>Description:</label>        
+        <textarea name="description" class="form-control" ng-model="place.description"
+                  required/>
     </div>
-
+    
+    <div class="form-group">
+        <label>Type:</label>        
+        <select name="type" class="form-control" ng-model="place.type"
+                  required>
+            <option value="restroom">Restroom</option>
+            <option value="electric">Power Outlet</option>
+            <option value="water">Drinking Fountain</option>
+        </select>
+    </div>
     
     <button ng-click="save()">Save</button>
     
