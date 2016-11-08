@@ -49,8 +49,12 @@ console.log('link map')
                 }
             })
 */
+
             googleMapsLoader.mapsApiPromise.then(
                 function () {
+
+                    initialize(element, attrs, defaultPosition);
+                
                     console.log('mapsApiPromise.then');
                     
                     if (navigator.geolocation) {
@@ -63,14 +67,10 @@ console.log('link map')
                             },
                             function (err) {
                                 console.log('error getting geolocation!');
-                                initialize(element, attrs, defaultPosition);
                             },
                             { timeout: 5000, enableHighAccuracy: true }
                         );
 
-                    } else {
-                        console.error('no navigator.geolocation!');
-                        initialize(element, attrs, defaultPosition);
                     }
                 },
                 function (err) {
