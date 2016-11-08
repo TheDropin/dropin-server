@@ -1,4 +1,4 @@
-angular.module('dropinAdmin', ['ui.router', 'DropinService'])
+angular.module('dropinAdmin', ['ui.router', 'DropinService', 'MapStylesService'])
 
 .run(function($state, googleMapsLoader, DropinService){
 

@@ -74,7 +74,7 @@ angular.module('dropinAdmin').controller('PlacesController', function($scope, Dr
         var marker = new google.maps.Marker({
             position: myLatLng,
             map: map,
-//            icon: PaletteService.getMapPinForPlace(place),
+            icon: DropinService.placeIcon(place.type),
             title: 'Hello World!'
         });
 

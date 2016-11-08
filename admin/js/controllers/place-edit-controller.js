@@ -1,5 +1,5 @@
 angular.module('dropinAdmin')
-    .controller('PlaceEditController', function ($scope, DropinService, $stateParams) {
+    .controller('PlaceEditController', function ($scope, DropinService, $stateParams, $state) {
         console.log('PDC: ' + JSON.stringify($stateParams));
 
         $scope.place = $stateParams.place;
@@ -16,26 +16,14 @@ angular.module('dropinAdmin')
             var placeholder = new google.maps.Marker({
                 position: myLatLng,
                 map: map,
-                draggable: true,
-                //            icon: PaletteService.getMapPinForStop(stop),
-                title: 'Hello World!'
+                draggable: true
             });
 
             $scope.$watch('place.type', function (value) {
                 console.log(value);
 
                 var iconUrl = DropinService.placeIcon(place.type);
-            if (iconUrl) {                
-                var image = {
-                    url: iconUrl,
-                    size: new google.maps.Size(32,32),
-                    origin: new google.maps.Point(0, 0),
-                    anchor: new google.maps.Point(13, 13),
-                    scaledSize: new google.maps.Size(25, 25)
-                };
                 placeholder.setIcon(iconUrl);
-            }
-            
             });
 
             return placeholder;
@@ -55,11 +43,17 @@ angular.module('dropinAdmin')
 
 
         $scope.save = function () {
-            console.log($scope.place);
 
             var pos = placeholder.getPosition().toJSON();
-
             $scope.place.geometry.coordinates = [pos.lat, pos.lng];
+            
+            console.log($scope.place);
+            
+            DropinService.updatePlace($scope.place)
+                .then(function(){
+                    $state.go('places');
+                })
+                .catch(alert)
         }
 
     });

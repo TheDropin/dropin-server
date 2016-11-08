@@ -1,4 +1,4 @@
-angular.module('dropinAdmin').directive("googleMap", function ($rootScope, $compile, googleMapsLoader) {
+angular.module('dropinAdmin').directive("googleMap", function ($rootScope, $compile, googleMapsLoader, MapStylesService) {
 
     var $scope, map;
 
@@ -15,7 +15,8 @@ angular.module('dropinAdmin').directive("googleMap", function ($rootScope, $comp
             disableDefaultUI: true,
             center: myLatlng,
             zoom: 16,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            styles: MapStylesService
         };
         map = new google.maps.Map(element[0], mapOptions);
 
