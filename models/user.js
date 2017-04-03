@@ -1,54 +1,34 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var bcrypt = require('bcrypt');
+var keystone = require('keystone');
+var Types = keystone.Field.Types;
 
-// Thanks to http://blog.matoski.com/articles/jwt-express-node-mongoose/
+/**
+ * User Model
+ * ==========
+ */
+var User = new keystone.List('User');
 
-var UserSchema = new Schema({
-    username: {
-        type: String,
-        unique: true,
-        required: true
-    },
-    password: {
-        type: String,
-        required: true
-    },
-    email: {
-        type: String
-    },
-    mobile: {
-        type: String
-    }
+User.add({
+	name: { type: Types.Name, required: true, index: true },
+	email: { type: Types.Email, initial: true, required: true, unique: true, index: true },
+	password: { type: Types.Password, initial: true, required: true },
+}, 'Permissions', {
+	isAdmin: { type: Boolean, label: 'Can access Keystone', index: true },
 });
 
-UserSchema.pre('save', function (next) {
-    var user = this;
-    if (this.isModified('password') || this.isNew) {
-        bcrypt.genSalt(10, function (err, salt) {
-            if (err) {
-                return next(err);
-            }
-            bcrypt.hash(user.password, salt, function (err, hash) {
-                if (err) {
-                    return next(err);
-                }
-                user.password = hash;
-                next();
-            });
-        });
-    } else {
-        return next();
-    }
+// Provide access to Keystone
+User.schema.virtual('canAccessKeystone').get(function () {
+	return this.isAdmin;
 });
 
-UserSchema.methods.comparePassword = function (passw, cb) {
-    bcrypt.compare(passw, this.password, function (err, isMatch) {
-        if (err) {
-            return cb(err);
-        }
-        cb(null, isMatch);
-    });
-};
 
-module.exports = mongoose.model('User', UserSchema);
+/**
+ * Relationships
+ */
+User.relationship({ ref: 'Post', path: 'posts', refPath: 'author' });
+
+
+/**
+ * Registration
+ */
+User.defaultColumns = 'name, email, isAdmin';
+User.register();

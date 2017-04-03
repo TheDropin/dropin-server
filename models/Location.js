@@ -12,7 +12,7 @@ var Location = new keystone.List('Location', {
 });
 
 Location.add({
-    nid: { type: Types.Number },
+//    nid: { type: Types.Number },
 	title: { type: String, required: true },
     wkt: { type: String },
     address: { type: String },

@@ -12,12 +12,12 @@ var Service = new keystone.List('Service', {
 });
 
 Service.add({
-    nid: { type: Types.Number },
+//    nid: { type: Types.Number },
 	title: { type: String, required: true },
     telephone: { type: String },
-	locationNid: { type: String },
+//	locationNid: { type: String },
 	location: { type: Types.Relationship, ref: 'Location', index: true },
-    type: { type: String },
+//    type: { type: String },
     serviceType: { type: Types.Relationship, ref: 'ServiceType', index: true },
 	publishedDate: { type: Types.Date, index: true, dependsOn: { state: 'published' } },
 	image: { type: Types.CloudinaryImage },
@@ -28,5 +28,5 @@ Service.schema.virtual('content.full').get(function () {
 	return this.content;
 });
 
-Service.defaultColumns = 'title, location|20%, type|20%, publishedDate|20%';
+Service.defaultColumns = 'title, serviceType|20%, location|20%';
 Service.register();
