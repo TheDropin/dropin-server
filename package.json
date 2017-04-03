@@ -1,41 +1,25 @@
 {
-  "name": "dropin_server",
-  "version": "0.0.1",
-  "description": "crowd-sourced database of located public amenities",
-  "main": "server.js",
-  "scripts": {
-    "test": "jasmine-node spec/*.spec.js",
-    "postinstall": "bower install"
-  },
-  "author": "Joe Beuckman <joebeuckman@gmail.com>",
-  "license": "FREEDOM",
-  "devDependencies": {
-    "grunt": "^1.0.1",
-    "grunt-contrib-jshint": "^1.0.0",
-    "grunt-contrib-watch": "^1.0.0",
-    "grunt-express-server": "^0.5.3",
-    "grunt-jasmine-node": "^0.3.1",
-    "jasmine-expect": "^3.0.1",
-    "jasmine-matchers": "^0.2.3",
-    "jasmine-node": "^1.14.5",
-    "supertest": "^2.0.0"
-  },
+  "name": "the-dropin",
+  "version": "0.0.0",
+  "private": true,
   "dependencies": {
-    "bcrypt": "^0.8.7",
-    "bcrypt-nodejs": "0.0.3",
-    "body-parser": "~1.13.1",
-    "bower": "~1.7.9",
-    "connect-ensure-login": "^0.1.1",
-    "connect-flash": "^0.1.1",
-    "express": "^4.14.0",
-    "jwt-simple": "^0.5.0",
-    "mongoose": "~4.0.6",
-    "morgan": "^1.7.0",
-    "passport": "^0.3.2",
-    "passport-jwt": "^2.1.0",
-    "request": "^2.75.0"
+    "keystone": "4.0.0-beta.5",
+    "lodash": "^4.13.1",
+    "moment": "2.17.1",
+    "cloudinary": "1.7.0",
+    "express-handlebars": "3.0.0",
+    "handlebars": "4.0.6",
+    "dotenv": "4.0.0", 
+    "keystone-email": "1.0.5", 
+    "async": "2.1.4"
   },
-  "engines": {
-    "node": ">=0.10.25"
+  "devDependencies": {
+    "eslint": "3.15.0",
+    "eslint-config-keystone": "3.0.0",
+    "eslint-plugin-react": "^5.1.1"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "start": "node keystone.js"
   }
 }
