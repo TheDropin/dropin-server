@@ -19,13 +19,18 @@ exports = module.exports = function (req, res) {
 
         var q = keystone.list('Location').paginate({
 			page: req.query.page || 1,
-			perPage: 100,
+			perPage: 1,
 			maxPages: 10
 		});
 
-        q.exec(function (err, results) {
-			locals.data.locations = results;
-			next(err);
+        q.exec(function (err, response) {
+            keystone.populateRelated(response.results, ['services'], function(err, docs){
+                console.log(response.results);
+                
+                locals.data.locations = response.results;
+                
+                next(err);
+            })
 		});
 	});
 

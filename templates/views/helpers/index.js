@@ -19,6 +19,8 @@ module.exports = function () {
      */
 
     hbs.registerHelper('json', function (context) {
+        console.log('context:');
+        console.log(context);
         return JSON.stringify(context);
     });
 
