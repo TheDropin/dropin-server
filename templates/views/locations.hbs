@@ -13,8 +13,7 @@ console.log(locations);
           scrollwheel: true,
           zoom: 11
         });
-          
-          
+                    
           
           locations.forEach(function(location){
     console.log(location);          
@@ -23,11 +22,19 @@ console.log(locations);
                   lng: location.location.geo[0]
             };
               
+        var infowindow = new google.maps.InfoWindow({
+          content: location.content
+        });
+
             var marker = new google.maps.Marker({
               position: myLatLng,
               map: map,
               title: location.title
             });          
+
+              marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
           });
           
       }
