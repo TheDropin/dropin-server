@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
 			<article>
-				<p><a href="/blog">&larr; back to the locations</a></p>
+				<p><a href="/locations">&larr; back to the locations</a></p>
 				<hr>
 				<header>
 					<h1>{{data.location.title}}</h1>
@@ -13,9 +13,52 @@
 				</header>
 				<div class="post">
 					{{#if data.location.image}}<img src="{{{cloudinaryUrl data.location.image width=750 height=450 crop='fit' }}}" class="img-responsive">{{/if}}
-					{{{data.location.content.extended}}}
+                    
+					{{{data.location.content}}}
+                    
 				</div>
+                
+    <div id="map" style="width: 800px; height: 400px;"></div>
+    <script>
+        var loc = {{{ json data.location }}};
+
+        function initMap() {
+            // Create a map object and specify the DOM element for display.
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: {
+                    lat: loc.location.geo[1],
+                    lng: loc.location.geo[0]
+                },
+                scrollwheel: true,
+                zoom: 17
+            });
+
+
+            var myLatLng = {
+                lat: loc.location.geo[1],
+                lng: loc.location.geo[0]
+            };
+
+            var infowindow = new google.maps.InfoWindow({
+                content: loc.content
+            });
+
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: loc.title
+            });
+
+            marker.addListener('click', function () {
+                infowindow.open(map, marker);
+            });
+
+        }
+    </script>                
+                
 			</article>
 		</div>
 	</div>
 </div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key={{data.GOOGLE_BROWSER_KEY}}&callback=initMap" async defer></script>

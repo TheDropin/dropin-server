@@ -32,5 +32,8 @@ ServiceType.schema.virtual('content.full').get(function () {
 	return this.content;
 });
 
+ServiceType.relationship({ path: 'services', ref: 'Service', refPath: 'serviceType' });
+
+
 ServiceType.defaultColumns = 'title, icon|20%';
 ServiceType.register();

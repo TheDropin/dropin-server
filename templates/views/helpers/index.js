@@ -21,7 +21,10 @@ module.exports = function () {
     hbs.registerHelper('json', function (context) {
         console.log('context:');
         console.log(context);
-        return JSON.stringify(context);
+        var str = JSON.stringify(context);
+        console.log("after:");
+        console.log(str);
+        return str;
     });
 
     // standard hbs equality check, pass in two values from template
