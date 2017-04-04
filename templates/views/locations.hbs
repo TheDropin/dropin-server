@@ -1,69 +1,70 @@
 <div class="container">
-	<h1>Locations</h1>
+    <h1>Locations</h1>
 
     <div id="map" style="width: 800px; height: 400px;"></div>
     <script>
         var locations = {{{ json data.locations.results }}};
-console.log(locations);
-        
-      function initMap() {
-        // Create a map object and specify the DOM element for display.
-        var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 44.95, lng: -93.23},
-          scrollwheel: true,
-          zoom: 11
-        });
-                    
-          
-          locations.forEach(function(location){
-    console.log(location);          
-              var myLatLng = {
-                  lat: location.location.geo[1],
-                  lng: location.location.geo[0]
-            };
-              
-        var infowindow = new google.maps.InfoWindow({
-          content: location.content
-        });
+        console.log(locations);
 
-            var marker = new google.maps.Marker({
-              position: myLatLng,
-              map: map,
-              title: location.title
-            });          
+        function initMap() {
+            // Create a map object and specify the DOM element for display.
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: {
+                    lat: 44.95,
+                    lng: -93.23
+                },
+                scrollwheel: true,
+                zoom: 11
+            });
 
-              marker.addListener('click', function() {
-          infowindow.open(map, marker);
-        });
-          });
-          
-      }
-        
+
+            locations.forEach(function (location) {
+                console.log(location);
+                var myLatLng = {
+                    lat: location.location.geo[1],
+                    lng: location.location.geo[0]
+                };
+
+                var infowindow = new google.maps.InfoWindow({
+                    content: location.content
+                });
+
+                var marker = new google.maps.Marker({
+                    position: myLatLng,
+                    map: map,
+                    title: location.title
+                });
+
+                marker.addListener('click', function () {
+                    infowindow.open(map, marker);
+                });
+            });
+
+        }
     </script>
 
 </div>
 <div class="container">
-	<div class="row">
-		<div class="col-sm-8 col-md-9">
-			<h4 class="text-weight-normal">Showing {{ data.locations.results.length}} locations.</h4>
-			<div class="blog">
-				{{# each data.locations.results}}
-				<div data-ks-editable="{{#if ../user}}{{adminEditableUrl ../../user _id}}{{/if}}" class="post">
-					<h2><a href="{{locationUrl slug}}">{{{title}}}</a></h2>
-					<p class="lead text-muted">{{{categoryList categories prefix="Posted in "}}}
-							{{#if author.name.first}}by {{author.name.first}}{{/if}}
-					</p>
-					{{#if image}}<img src="{{{cloudinaryUrl image width=160 height=160 crop='fit' }}}" class="img pull-right">{{/if}}
-					<p>{{{content}}}</p>
-				</div>
-				{{/each}}
-			</div>
-		</div>
+    <div class="row">
+        <div class="col-sm-8 col-md-9">
+            <h4 class="text-weight-normal">Showing {{ data.locations.results.length}} locations.</h4>
+            <div class="blog">
+                {{# each data.locations.results}}
+                <div data-ks-editable="{{#if ../user}}{{adminEditableUrl ../../user _id}}{{/if}}" class="post">
+                    <h2><a href="{{locationUrl slug}}">{{{title}}}</a></h2>
+                    <p class="lead text-muted">{{{categoryList categories prefix="Posted in "}}} {{#if author.name.first}}by {{author.name.first}}{{/if}}
+                    </p>
+                    {{#if image}}
+                    <img src="{{{cloudinaryUrl image width=160 height=160 crop='fit' }}}" class="img pull-right">{{/if}}
+                    <p>{{{content}}}</p>
+                </div>
+                {{/each}}
+            </div>
+        </div>
 
     </div>
 
-    
+
 </div>
 
-<script src="https://maps.googleapis.com/maps/api/js?key={{data.GOOGLE_BROWSER_KEY}}&callback=initMap"
-    async defer></script>    
+<script src="https://maps.googleapis.com/maps/api/js?key={{data.GOOGLE_BROWSER_KEY}}&callback=initMap" async defer></script>

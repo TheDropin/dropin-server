@@ -21,7 +21,6 @@ var ServiceType = new keystone.List('ServiceType', {
 });
 
 ServiceType.add({
-//    nid: { type: Types.Number },
 	title: { type: String, required: true },
 	publishedDate: { type: Types.Date, index: true, dependsOn: { state: 'published' } },
 	image: { type: Types.CloudinaryImage },
