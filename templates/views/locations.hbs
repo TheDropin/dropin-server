@@ -3,6 +3,9 @@
 
     <div id="map" style="width: 800px; height: 400px;"></div>
     <script>
+        var locations = {{{ json data.locations.results }}};
+console.log(locations);
+        
       function initMap() {
         // Create a map object and specify the DOM element for display.
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -10,8 +13,25 @@
           scrollwheel: false,
           zoom: 8
         });
+          
+          
+          
+          locations.forEach(function(location){
+    console.log(location);          
+              var myLatLng = {
+                  lat: location.location.geo[1],
+                  lng: location.location.geo[0]
+            };
+              
+            var marker = new google.maps.Marker({
+              position: myLatLng,
+              map: map,
+              title: location.title
+            });          
+          });
+          
       }
-
+        
     </script>
 
 </div>
