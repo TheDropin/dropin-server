@@ -1,5 +1,19 @@
 <div class="container">
 	<h1>Locations</h1>
+
+    <div id="map" style="width: 800px; height: 400px;"></div>
+    <script>
+      function initMap() {
+        // Create a map object and specify the DOM element for display.
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          scrollwheel: false,
+          zoom: 8
+        });
+      }
+
+    </script>
+
 </div>
 <div class="container">
 	<div class="row">
@@ -8,7 +22,7 @@
 			<div class="blog">
 				{{# each data.locations.results}}
 				<div data-ks-editable="{{#if ../user}}{{adminEditableUrl ../../user _id}}{{/if}}" class="post">
-					<h2><a href="{{postUrl slug}}">{{{title}}}</a></h2>
+					<h2><a href="{{locationUrl slug}}">{{{title}}}</a></h2>
 					<p class="lead text-muted">{{{categoryList categories prefix="Posted in "}}}
 							{{#if author.name.first}}by {{author.name.first}}{{/if}}
 					</p>
@@ -18,16 +32,11 @@
 				{{/each}}
 			</div>
 		</div>
-        
-		<!--div class="col-sm-4 col-md-3">
-			<h2>Categories</h2>
-			<div style="margin-top: 70px;" class="list-group">
-				<a href="/blog" class="active list-group-item">All Categories</a>
-				{{# each data.categories }}
-				<a href="{{categoryUrl key}}" class="false list-group-item">{{name}}</a>
-				{{/each}}
-			</div>
-		</div-->
-	</div>
-	{{>pagination}}
+
+    </div>
+
+    
 </div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key={{data.GOOGLE_BROWSER_KEY}}&callback=initMap"
+    async defer></script>    

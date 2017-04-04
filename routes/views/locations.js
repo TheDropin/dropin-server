@@ -8,81 +8,22 @@ exports = module.exports = function (req, res) {
 
 	// Init locals
 	locals.section = 'locations';
-/*    
-	locals.filters = {
-		category: req.params.category,
-	};
-*/    
-	locals.data = {
+
+    locals.data = {
 		locations: [],
-//		categories: [],
+        GOOGLE_BROWSER_KEY: process.env.GOOGLE_BROWSER_KEY
 	};
-/*
-	// Load all categories
+
+    // Load the locations
 	view.on('init', function (next) {
 
-		keystone.list('PostCategory').model.find().sort('name').exec(function (err, results) {
-
-			if (err || !results.length) {
-				return next(err);
-			}
-
-			locals.data.categories = results;
-
-			// Load the counts for each category
-			async.each(locals.data.categories, function (category, next) {
-
-				keystone.list('Post').model.count().where('categories').in([category.id]).exec(function (err, count) {
-					category.postCount = count;
-					next(err);
-				});
-
-			}, function (err) {
-				next(err);
-			});
-		});
-	});
-
-	// Load the current category filter
-	view.on('init', function (next) {
-
-		if (req.params.category) {
-			keystone.list('PostCategory').model.findOne({ key: locals.filters.category }).exec(function (err, result) {
-				locals.data.category = result;
-				next(err);
-			});
-		} else {
-			next();
-		}
-	});
-*/
-	// Load the locations
-	view.on('init', function (next) {
-/*
-		var q = keystone.list('Location').paginate({
+        var q = keystone.list('Location').paginate({
 			page: req.query.page || 1,
-			perPage: 10,
-			maxPages: 10,
-            
-			filters: {
-				state: 'published',
-			},
-		})
-			.sort('-publishedDate')
-			.populate('author categories');
-*/        
-		var q = keystone.list('Location').paginate({
-			page: req.query.page || 1,
-			perPage: 10,
+			perPage: 100,
 			maxPages: 10
 		});
-        
-/*
-		if (locals.data.category) {
-			q.where('categories').in([locals.data.category]);
-		}
-*/
-		q.exec(function (err, results) {
+
+        q.exec(function (err, results) {
 			locals.data.locations = results;
 			next(err);
 		});

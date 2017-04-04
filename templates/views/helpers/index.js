@@ -196,6 +196,11 @@ module.exports = function () {
 		return ('/blog/post/' + postSlug);
 	};
 
+	// Direct url link to a specific location
+	_helpers.locationUrl = function (locationSlug, options) {
+		return ('/location/' + locationSlug);
+	};
+
 	// might be a ghost helper
 	// used for pagination urls on blog
 	_helpers.pageUrl = function (pageNumber, options) {
