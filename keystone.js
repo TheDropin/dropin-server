@@ -49,8 +49,12 @@ keystone.set('locals', {
 	editable: keystone.content.editable,
 });
 
+
 // Load your project's Routes
-keystone.set('routes', require('./routes'));
+keystone.set('routes', function(app) {    
+    require('keystone-rest').addRoutes(app, keystone);
+    require('./routes')(app);
+});
 
 
 // Configure the navigation bar in Keystone's Admin UI
