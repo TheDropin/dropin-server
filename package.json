@@ -11,7 +11,8 @@
     "handlebars": "4.0.6",
     "dotenv": "4.0.0", 
     "keystone-email": "1.0.5", 
-    "async": "2.1.4"
+    "async": "2.1.4",
+      "keystone-rest": "https://github.com/jbeuckm/keystone-rest.git"
   },
   "devDependencies": {
     "eslint": "3.15.0",
