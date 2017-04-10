@@ -50,6 +50,7 @@ keystone.set('locals', {
 	editable: keystone.content.editable,
 });
 
+
 // Load your project's Routes
 keystone.set('routes', function(app){
     require('./routes')(app);
@@ -59,10 +60,11 @@ keystone.set('routes', function(app){
 
 // Configure the navigation bar in Keystone's Admin UI
 keystone.set('nav', {
+    services: ['locations', 'service-types', 'services'],
+	users: 'users',
 	posts: ['posts', 'post-categories'],
 	galleries: 'galleries',
-	enquiries: 'enquiries',
-	users: 'users',
+	enquiries: 'enquiries'
 });
 
 // Start Keystone to connect to your database and initialise the web server

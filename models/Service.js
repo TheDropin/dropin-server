@@ -12,12 +12,9 @@ var Service = new keystone.List('Service', {
 });
 
 Service.add({
-//    nid: { type: Types.Number },
 	title: { type: String, required: true },
     telephone: { type: String },
-//	locationNid: { type: String },
 	location: { type: Types.Relationship, ref: 'Location', index: true },
-//    type: { type: String },
     serviceType: { type: Types.Relationship, ref: 'ServiceType', index: true },
 	publishedDate: { type: Types.Date, index: true, dependsOn: { state: 'published' } },
 	image: { type: Types.CloudinaryImage },

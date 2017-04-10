@@ -12,7 +12,6 @@ var Location = new keystone.List('Location', {
 });
 
 Location.add({
-//    nid: { type: Types.Number },
 	title: { type: String, required: true },
     wkt: { type: String },
     address: { type: String },
@@ -27,6 +26,10 @@ Location.add({
 Location.schema.virtual('content.full').get(function () {
 	return this.content.extended || this.content.brief;
 });
+
+
+Location.relationship({ path: 'services', ref: 'Service', refPath: 'location' });
+
 
 Location.defaultColumns = 'title, location|20%, author|20%, publishedDate|20%';
 Location.register();

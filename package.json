@@ -3,16 +3,20 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "keystone": "4.0.0-beta.5",
-    "lodash": "^4.13.1",
-    "moment": "2.17.1",
+    "async": "2.1.4",
     "cloudinary": "1.7.0",
+    "dotenv": "4.0.0",
     "express-handlebars": "3.0.0",
     "handlebars": "4.0.6",
     "dotenv": "4.0.0", 
     "keystone-email": "1.0.5", 
     "async": "2.1.4",
-      "keystone-rest": "https://github.com/jbeuckm/keystone-rest.git"
+      "keystone-rest": "https://github.com/jbeuckm/keystone-rest.git",
+    "keystone": "4.0.0-beta.5",
+    "keystone-email": "1.0.5",
+    "lodash": "^4.13.1",
+    "moment": "2.17.1",
+    "swagger-jsdoc": "^1.9.2"
   },
   "devDependencies": {
     "eslint": "3.15.0",
