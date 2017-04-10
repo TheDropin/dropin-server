@@ -5,7 +5,6 @@ var Types = keystone.Field.Types;
  * Service Model
  * ==========
  */
-
 var Service = new keystone.List('Service', {
 	map: { name: 'title' },
 	autokey: { path: 'slug', from: 'title', unique: true },
