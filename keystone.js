@@ -34,6 +34,7 @@ keystone.init({
 	'session': true,
 	'auth': true,
 	'user model': 'User',
+    'mongo': process.env.MONGO_URI || "mongodb://localhost/the-dropin"
 });
 
 // Load your project's Models
