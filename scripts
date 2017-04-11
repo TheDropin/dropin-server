@@ -1,0 +1,9 @@
+// save a db backup
+mongodump -d the-dropin --gzip --archive=minneapolis.gzip
+
+// restore local db
+mongorestore -d the-dropin --gzip --archive=minneapolis.gzip
+
+// push db to heroku
+mongodump -d the-dropin
+mongorestore -h ds019053.mlab.com:19053 --db heroku_kkk9kzfv -u dbadmin -p *** --dir=./dump/the-dropin
