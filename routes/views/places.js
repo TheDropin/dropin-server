@@ -7,17 +7,17 @@ exports = module.exports = function (req, res) {
 	var locals = res.locals;
 
 	// Init locals
-	locals.section = 'locations';
+	locals.section = 'places';
 
     locals.data = {
-		locations: [],
+		places: [],
         GOOGLE_BROWSER_KEY: process.env.GOOGLE_BROWSER_KEY
 	};
 
     // Load the locations
 	view.on('init', function (next) {
 
-        var q = keystone.list('Location').paginate({
+        var q = keystone.list('Place').paginate({
 			page: req.query.page || 1,
 			perPage: 100,
 			maxPages: 10
@@ -27,7 +27,7 @@ exports = module.exports = function (req, res) {
             keystone.populateRelated(response.results, ['services'], function(){
                 console.log(response.results);
                 
-                locals.data.locations = response.results;
+                locals.data.places = response.results;
                 
                 next(err);
             })
@@ -35,5 +35,5 @@ exports = module.exports = function (req, res) {
 	});
 
 	// Render the view
-	view.render('locations');
+	view.render('places');
 };

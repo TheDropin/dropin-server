@@ -2,17 +2,17 @@
 	<div class="row">
 		<div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
 			<article>
-				<p><a href="/locations">&larr; back to the locations</a></p>
+				<p><a href="/places">&larr; back to the places</a></p>
 				<hr>
 				<header>
-					<h1>{{data.location.title}}</h1>
+					<h1>{{data.place.title}}</h1>
 					<h5>
-						{{{categoryList data.location.categories prefix="Posted in "}}}
+						{{{categoryList data.place.categories prefix="Posted in "}}}
 						{{#if author.name.first}}by {{author.name.first}}{{/if}}
 					</h5>
 				</header>
 				<div class="post">
-					{{#if data.location.image}}<img src="{{{cloudinaryUrl data.location.image width=750 height=450 crop='fit' }}}" class="img-responsive">{{/if}}
+					{{#if data.place.image}}<img src="{{{cloudinaryUrl data.place.image width=750 height=450 crop='fit' }}}" class="img-responsive">{{/if}}
                     
 					{{{data.location.content}}}
                     
@@ -20,14 +20,14 @@
                 
     <div id="map" style="width: 800px; height: 400px;"></div>
     <script>
-        var loc = {{{ json data.location }}};
+        var place = {{{ json data.place }}};
 
         function initMap() {
             // Create a map object and specify the DOM element for display.
             var map = new google.maps.Map(document.getElementById('map'), {
                 center: {
-                    lat: loc.location.geo[1],
-                    lng: loc.location.geo[0]
+                    lat: place.location.geo[1],
+                    lng: place.location.geo[0]
                 },
                 scrollwheel: true,
                 zoom: 17
@@ -35,18 +35,18 @@
 
 
             var myLatLng = {
-                lat: loc.location.geo[1],
-                lng: loc.location.geo[0]
+                lat: place.location.geo[1],
+                lng: place.location.geo[0]
             };
 
             var infowindow = new google.maps.InfoWindow({
-                content: loc.content
+                content: place.content
             });
 
             var marker = new google.maps.Marker({
                 position: myLatLng,
                 map: map,
-                title: loc.title
+                title: place.title
             });
 
             marker.addListener('click', function () {

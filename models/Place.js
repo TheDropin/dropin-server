@@ -6,12 +6,12 @@ var Types = keystone.Field.Types;
  * ==========
  */
 
-var Location = new keystone.List('Location', {
+var Place = new keystone.List('Place', {
 	map: { name: 'title' },
 	autokey: { path: 'slug', from: 'title', unique: true },
 });
 
-Location.add({
+Place.add({
 	title: { type: String, required: true },
     wkt: { type: String },
     address: { type: String },
@@ -23,13 +23,13 @@ Location.add({
 	content: { type: Types.Html, wysiwyg: true, height: 400 }
 });
 
-Location.schema.virtual('content.full').get(function () {
+Place.schema.virtual('content.full').get(function () {
 	return this.content.extended || this.content.brief;
 });
 
 
-Location.relationship({ path: 'services', ref: 'Service', refPath: 'location' });
+Place.relationship({ path: 'services', ref: 'Service', refPath: 'place' });
 
 
-Location.defaultColumns = 'title, location|20%, author|20%, publishedDate|20%';
-Location.register();
+Place.defaultColumns = 'title, location|20%, author|20%, publishedDate|20%';
+Place.register();

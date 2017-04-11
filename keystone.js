@@ -60,7 +60,7 @@ keystone.set('routes', function(app){
 
 // Configure the navigation bar in Keystone's Admin UI
 keystone.set('nav', {
-    services: ['locations', 'service-types', 'services'],
+    services: ['places', 'service-types', 'services'],
 	users: 'users',
 	posts: ['posts', 'post-categories'],
 	galleries: 'galleries',

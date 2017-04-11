@@ -1,10 +1,10 @@
 <div class="container">
-    <h1>Locations</h1>
+    <h1>Places</h1>
 
     <div id="map" style="width: 800px; height: 400px;"></div>
     <script>
-        var locations = {{{ json data.locations }}};
-        console.log(locations);
+        var places = {{{ json data.places }}};
+        console.log(places);
 
         function initMap() {
             // Create a map object and specify the DOM element for display.
@@ -18,21 +18,21 @@
             });
 
 
-            locations.forEach(function (location) {
-                console.log(location);
+            places.forEach(function (place) {
+                console.log(place);
                 var myLatLng = {
-                    lat: location.location.geo[1],
-                    lng: location.location.geo[0]
+                    lat: place.location.geo[1],
+                    lng: place.location.geo[0]
                 };
 
                 var infowindow = new google.maps.InfoWindow({
-                    content: location.content
+                    content: place.content
                 });
 
                 var marker = new google.maps.Marker({
                     position: myLatLng,
                     map: map,
-                    title: location.title
+                    title: place.title
                 });
 
                 marker.addListener('click', function () {
@@ -47,9 +47,9 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-8 col-md-9">
-            <h4 class="text-weight-normal">Showing {{ data.locations.results.length}} locations.</h4>
+            <h4 class="text-weight-normal">Showing {{ data.places.results.length}} places.</h4>
             <div class="blog">
-                {{# each data.locations.results}}
+                {{# each data.places.results}}
                 <div data-ks-editable="{{#if ../user}}{{adminEditableUrl ../../user _id}}{{/if}}" class="post">
                     <h2><a href="{{locationUrl slug}}">{{{title}}}</a></h2>
                     <p class="lead text-muted">{{{categoryList categories prefix="Posted in "}}} {{#if author.name.first}}by {{author.name.first}}{{/if}}

@@ -204,9 +204,9 @@ module.exports = function () {
         return ('/blog/post/' + postSlug);
     };
 
-    // Direct url link to a specific location
-    _helpers.locationUrl = function (locationSlug, options) {
-        return ('/location/' + locationSlug);
+    // Direct url link to a specific place
+    _helpers.placeUrl = function (placeSlug, options) {
+        return ('/place/' + placeSlug);
     };
 
     // might be a ghost helper

@@ -13,7 +13,7 @@ var Service = new keystone.List('Service', {
 Service.add({
 	title: { type: String, required: true },
     telephone: { type: String },
-	location: { type: Types.Relationship, ref: 'Location', index: true },
+	place: { type: Types.Relationship, ref: 'Place', index: true },
     serviceType: { type: Types.Relationship, ref: 'ServiceType', index: true },
 	publishedDate: { type: Types.Date, index: true, dependsOn: { state: 'published' } },
 	image: { type: Types.CloudinaryImage },
@@ -24,5 +24,5 @@ Service.schema.virtual('content.full').get(function () {
 	return this.content;
 });
 
-Service.defaultColumns = 'title, serviceType|20%, location|20%';
+Service.defaultColumns = 'title, serviceType|20%, place|20%';
 Service.register();

@@ -6,9 +6,9 @@ exports = module.exports = function (req, res) {
 	var locals = res.locals;
 
 	// Set locals
-	locals.section = 'locations';
+	locals.section = 'places';
 	locals.filters = {
-		location: req.params.location
+		place: req.params.place
 	};
 	locals.data = {
         GOOGLE_BROWSER_KEY: process.env.GOOGLE_BROWSER_KEY
@@ -17,8 +17,8 @@ exports = module.exports = function (req, res) {
 	// Load the current post
 	view.on('init', function (next) {
 
-		var q = keystone.list('Location').model.findOne({
-			slug: locals.filters.location,
+		var q = keystone.list('Place').model.findOne({
+			slug: locals.filters.place,
 		});
 
 		q.exec(function (err, result) {
@@ -26,7 +26,7 @@ exports = module.exports = function (req, res) {
             var arr = [result];
 
             keystone.populateRelated(arr, ['services'], function(){
-                locals.data.location = arr[0];
+                locals.data.place = arr[0];
                 next(err);
             });
 
@@ -36,5 +36,5 @@ exports = module.exports = function (req, res) {
 
     
 	// Render the view
-	view.render('location');
+	view.render('place');
 };
