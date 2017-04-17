@@ -18,6 +18,8 @@
             });
 
 
+            var infowindow = new google.maps.InfoWindow();
+
             places.forEach(function (place) {
                 console.log(place);
                 var myLatLng = {
@@ -25,9 +27,6 @@
                     lng: place.location.geo[0]
                 };
 
-                var infowindow = new google.maps.InfoWindow({
-                    content: place.content
-                });
 
                 var marker = new google.maps.Marker({
                     position: myLatLng,
@@ -36,6 +35,7 @@
                 });
 
                 marker.addListener('click', function () {
+                    infowindow.setContent(place.content);
                     infowindow.open(map, marker);
                 });
             });
@@ -47,19 +47,7 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-8 col-md-9">
-            <h4 class="text-weight-normal">Showing {{ data.places.results.length}} places.</h4>
-            <div class="blog">
-                {{# each data.places.results}}
-                <div data-ks-editable="{{#if ../user}}{{adminEditableUrl ../../user _id}}{{/if}}" class="post">
-                    <h2><a href="{{locationUrl slug}}">{{{title}}}</a></h2>
-                    <p class="lead text-muted">{{{categoryList categories prefix="Posted in "}}} {{#if author.name.first}}by {{author.name.first}}{{/if}}
-                    </p>
-                    {{#if image}}
-                    <img src="{{{cloudinaryUrl image width=160 height=160 crop='fit' }}}" class="img pull-right">{{/if}}
-                    <p>{{{content}}}</p>
-                </div>
-                {{/each}}
-            </div>
+            <h4 class="text-weight-normal">Showing {{ data.places.length}} places.</h4>
         </div>
 
     </div>
