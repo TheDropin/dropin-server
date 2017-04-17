@@ -26,7 +26,15 @@ exports = module.exports = function (req, res) {
             var arr = [result];
 
             keystone.populateRelated(arr, ['services'], function(){
-                locals.data.place = arr[0];
+                
+                var place = arr[0];
+                var services = place.services;
+                
+                place.services = place.services.map(function(s){
+                    return JSON.parse(JSON.stringify(s));                    
+                });
+                
+                locals.data.place = place;
                 next(err);
             });
 
