@@ -35,7 +35,10 @@
                 });
 
                 marker.addListener('click', function () {
-                    infowindow.setContent(place.content);
+
+                    var el = document.getElementById("place-" + place._id);
+                    infowindow.setContent(el);
+
                     infowindow.open(map, marker);
                 });
             });
@@ -56,3 +59,12 @@
 </div>
 
 <script src="https://maps.googleapis.com/maps/api/js?key={{data.GOOGLE_BROWSER_KEY}}&callback=initMap" async defer></script>
+
+<div id="infowindow-containers" style="display:none;">
+    {{# each data.places}}
+    <div id="place-{{ _id }}" class="post">
+        <h2><a href="{{postUrl slug}}">{{{title}}}</a></h2>
+        <p>{{{content}}}</p>
+    </div>
+    {{/each}}
+</div>
