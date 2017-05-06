@@ -14,7 +14,15 @@
 				<div class="post">
 					{{#if data.place.image}}<img src="{{{cloudinaryUrl data.place.image width=750 height=450 crop='fit' }}}" class="img-responsive">{{/if}}
                     
-					{{{data.place.content}}}
+					{{{ data.place.content }}}
+                    
+                    <h3>Services</h3>
+                    
+					{{# each data.place.services }}
+                        <span><img src="{{ serviceType.icon.url }}"></span>
+                    {{/each}}
+                    
+                    <br><br>
                     
 				</div>
                 

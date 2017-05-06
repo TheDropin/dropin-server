@@ -1,4 +1,7 @@
 var keystone = require('keystone');
+var Service = keystone.list('Service');
+var ServiceType = keystone.list('ServiceType');
+
 
 exports = module.exports = function (req, res) {
 
@@ -11,6 +14,7 @@ exports = module.exports = function (req, res) {
 		place: req.params.place
 	};
 	locals.data = {
+        place: true,
         GOOGLE_BROWSER_KEY: process.env.GOOGLE_BROWSER_KEY
 	};
 
@@ -21,14 +25,22 @@ exports = module.exports = function (req, res) {
 			slug: locals.filters.place,
 		});
 
-		q.exec(function (err, result) {
+		q.exec(function (err, place) {
             
-            var arr = [result];
-
-            keystone.populateRelated(arr, ['services'], function(){
-                locals.data.place = arr[0];
-                next(err);
+            place.populateRelated('services', function(err) {
+                
+                var serviceIds = place.services.map(function(s){ return s._id; });
+                
+                Service.model.find({_id:serviceIds}).populate('serviceType').exec(function(err, services){
+                    
+                    place.services = services;
+                    locals.data.place = place;
+                    next(err);
+                    
+                });
+                
             });
+
 
         });
 
