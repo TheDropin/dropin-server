@@ -1,79 +1,72 @@
 <div class="container">
-	<div class="row">
-		<div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
-			<article>
-				<p><a href="/places">&larr; back to the places</a></p>
-				<hr>
-                
-    <div id="map" style="width: 800px; height: 400px;"></div>
-                
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+            <article>
+                <p><a href="/places">&larr; back to the places</a></p>
+                <hr>
+
                 <header>
-					<h1>{{data.place.title}}</h1>
-					<h5>
+                    <h1>{{data.place.title}}</h1>
+                    <h5>
 						{{{categoryList data.place.categories prefix="Posted in "}}}
 						{{#if author.name.first}}by {{author.name.first}}{{/if}}
 					</h5>
-				</header>
-				<div class="place">
-                    
-					{{{ data.place.content }}}
-                    
-                    <h3>Services</h3>
-                    
-					{{# each data.place.services }}
-                        <span><img src="{{ serviceType.icon.url }}"></span>
-                    {{/each}}
-                    
-                    <br><br>
-                                        
-				</div>
-                
-    <script>
-        var place = {{{ json data.place }}};
-        console.log(place);
+                </header>
+                <div class="place">
 
-        function initMap() {
-            // Create a map object and specify the DOM element for display.
-            var map = new google.maps.Map(document.getElementById('map'), {
-                center: {
-                    lat: place.location.geo[1],
-                    lng: place.location.geo[0]
-                },
-                scrollwheel: true,
-                zoom: 17
-            });
+                    {{{ data.place.content }}}
+
+                    <h3>Services</h3> {{# each data.place.services }}
+                    <span><img src="{{ serviceType.icon.url }}"></span> {{/each}}
+
+                    <br>
+                    <br>
+
+                </div>
+
+                <div id="map" style="width: 800px; height: 400px;"></div>
+
+                <script>
+                    var place = {{{ json data.place }}};
+                    console.log(place);
+
+                    function initMap() {
+                        // Create a map object and specify the DOM element for display.
+                        var map = new google.maps.Map(document.getElementById('map'), {
+                            center: {
+                                lat: place.location.geo[1],
+                                lng: place.location.geo[0]
+                            },
+                            scrollwheel: true,
+                            zoom: 17
+                        });
 
 
-            var myLatLng = {
-                lat: place.location.geo[1],
-                lng: place.location.geo[0]
-            };
+                        var myLatLng = {
+                            lat: place.location.geo[1],
+                            lng: place.location.geo[0]
+                        };
 
-            var infowindow = new google.maps.InfoWindow({
-                content: place.content
-            });
+                        var infowindow = new google.maps.InfoWindow({
+                            content: place.content
+                        });
 
-            var marker = new google.maps.Marker({
-                position: myLatLng,
-                map: map,
-                title: place.title
-            });
+                        var marker = new google.maps.Marker({
+                            position: myLatLng,
+                            map: map,
+                            title: place.title
+                        });
 
-            marker.addListener('click', function () {
-                infowindow.open(map, marker);
-            });
+                        marker.addListener('click', function () {
+                            infowindow.open(map, marker);
+                        });
 
-        }
-    </script>                
-                
-			</article>
-		</div>
-	</div>
+                    }
+                </script>
+
+            </article>
+        </div>
+    </div>
 </div>
 
-<<<<<<< HEAD
 <script src="https://maps.googleapis.com/maps/api/js?key={{data.GOOGLE_BROWSER_KEY}}&callback=initMap" async defer></script>
-=======
-<script src="https://maps.googleapis.com/maps/api/js?key{{data.GOOGLE_BROWSER_KEY}}&callback=initMap" async defer></script>
-
->>>>>>> 8c3ec5c68320b6c1c5291f8324084aa0515b7a03
