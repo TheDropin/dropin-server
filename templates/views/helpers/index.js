@@ -9,6 +9,8 @@ var linkTemplate = _.template('<a href="<%= url %>"><%= text %></a>');
 var scriptTemplate = _.template('<script src="<%= src %>"></script>');
 var cssLinkTemplate = _.template('<link href="<%= href %>" rel="stylesheet">');
 
+
+
 module.exports = function () {
 
     var _helpers = {};
@@ -17,13 +19,15 @@ module.exports = function () {
      * Generic HBS Helpers
      * ===================
      */
-
     hbs.registerHelper('json', function (context) {
-        console.log('context:');
-        console.log(context);
-        var str = JSON.stringify(context);
-        console.log("after:");
-        console.log(str);
+
+        var obj = JSON.parse(JSON.stringify(context));
+        if (context.services) {
+            obj.services = JSON.parse(JSON.stringify(context.services));
+        }
+        
+        var str = JSON.stringify(obj);
+        
         return str;
     });
 
@@ -207,6 +211,11 @@ module.exports = function () {
     // Direct url link to a specific place
     _helpers.placeUrl = function (placeSlug, options) {
         return ('/place/' + placeSlug);
+    };
+
+    // Direct url link to a specific place
+    _helpers.serviceUrl = function (placeSlug, options) {
+        return ('/service/' + placeSlug);
     };
 
     // might be a ghost helper

@@ -4,15 +4,17 @@
 			<article>
 				<p><a href="/places">&larr; back to the places</a></p>
 				<hr>
-				<header>
+                
+    <div id="map" style="width: 800px; height: 400px;"></div>
+                
+                <header>
 					<h1>{{data.place.title}}</h1>
 					<h5>
 						{{{categoryList data.place.categories prefix="Posted in "}}}
 						{{#if author.name.first}}by {{author.name.first}}{{/if}}
 					</h5>
 				</header>
-				<div class="post">
-					{{#if data.place.image}}<img src="{{{cloudinaryUrl data.place.image width=750 height=450 crop='fit' }}}" class="img-responsive">{{/if}}
+				<div class="place">
                     
 					{{{ data.place.content }}}
                     
@@ -23,12 +25,12 @@
                     {{/each}}
                     
                     <br><br>
-                    
+                                        
 				</div>
                 
-    <div id="map" style="width: 800px; height: 400px;"></div>
     <script>
         var place = {{{ json data.place }}};
+        console.log(place);
 
         function initMap() {
             // Create a map object and specify the DOM element for display.
@@ -69,4 +71,9 @@
 	</div>
 </div>
 
+<<<<<<< HEAD
 <script src="https://maps.googleapis.com/maps/api/js?key={{data.GOOGLE_BROWSER_KEY}}&callback=initMap" async defer></script>
+=======
+<script src="https://maps.googleapis.com/maps/api/js?key{{data.GOOGLE_BROWSER_KEY}}&callback=initMap" async defer></script>
+
+>>>>>>> 8c3ec5c68320b6c1c5291f8324084aa0515b7a03
