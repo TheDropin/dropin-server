@@ -20,7 +20,8 @@ Place.add({
 	author: { type: Types.Relationship, ref: 'User', index: true },
 	publishedDate: { type: Types.Date, index: true, dependsOn: { state: 'published' } },
 	image: { type: Types.CloudinaryImage },
-	content: { type: Types.Html, wysiwyg: true, height: 400 }
+	content: { type: Types.Html, wysiwyg: true, height: 400 },
+	source: { type: Types.Relationship, ref: 'DataSource', index: true }
 });
 
 Place.schema.virtual('content.full').get(function () {

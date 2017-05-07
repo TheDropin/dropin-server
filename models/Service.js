@@ -17,7 +17,8 @@ Service.add({
     serviceType: { type: Types.Relationship, ref: 'ServiceType', index: true },
 	publishedDate: { type: Types.Date, index: true, dependsOn: { state: 'published' } },
 	image: { type: Types.CloudinaryImage },
-	content: { type: Types.Html, wysiwyg: true, height: 400 }
+	content: { type: Types.Html, wysiwyg: true, height: 400 },
+	source: { type: Types.Relationship, ref: 'DataSource', index: true }
 });
 
 Service.schema.virtual('content.full').get(function () {
