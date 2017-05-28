@@ -19,117 +19,126 @@ exports = module.exports = function (req, res) {
 
     // Load the locations
     view.on('init', function (next) {
-        
-        
-        keystone.list('Place').model.find().exec(function (err, places){
-        keystone.list('Service').model.find().populate('serviceType').exec(function (err, services){
-        keystone.list('ServiceType').model.find().exec(function (err, serviceTypes){
-            
-            var data = {
-                places: {}
-            };
-            
-            places = places.map(function(p){
-                p = JSON.parse(JSON.stringify(p))
-                delete p.nid;
-                delete p.slug;
-                p.services = {};
-                return p;
-            });
-            
-            places.forEach(function(p){
-                var id = p._id;
-                delete p._id;
-                data.places[id] = p;
-            });
-            
-            services = services.map(function(s){
-                s = JSON.parse(JSON.stringify(s))
-                delete s.locationNid;
-                delete s.slug;
-                delete s.type;
-                delete s.location;
-                
-                s.source = "St. Stephen's Handbook of the Streets";
-                
-                console.log('service:');
-                console.log(s);
-                s.serviceType = s.serviceType? s.serviceType.title : null;
-                return s;
-            });
 
-            services.forEach(function(s){
-                var placeId = s.place;
-                var serviceId = s._id;
-                if (data.places[placeId]) {
-                    delete s.place;
-                    delete s._id;
-                    data.places[placeId].services[serviceId] = s;
-                }
-            });
 
-            locals.data = data;
-            
-            next(err);
-        });
-        });
-        });
-/*
-        var q = keystone.list('Place').paginate({
-            page: req.query.page || 1,
-            perPage: 100,
-            maxPages: 10
-        });
+        keystone.list('Place').model.find().exec(function (err, places) {
+            keystone.list('Service').model.find().populate('serviceType').exec(function (err, services) {
+                keystone.list('ServiceType').model.find().exec(function (err, serviceTypes) {
 
-        q.exec(function (err, response) {
-            keystone.populateRelated(response.results, ['services'], function () {
-                
-                var promises = [];
+                    var data = {
+                        places: {}
+                    };
 
-                response.results.forEach(function (p) {
-                    
-                    var def = Q.defer();
+                    places = places.map(function (p) {
+                        p = JSON.parse(JSON.stringify(p))
+                        delete p.nid;
+                        delete p.slug;
+                        p.services = [];
+                        p.description = p.content;
+                        
+                        delete p.content;
+                        p.position = {
+                            lng: p.location.geo[0],
+                            lat: p.location.geo[1]
+                        };
+                        delete p.location;
+                        
+                        return p;
+                    });
 
-                    var services = JSON.parse(JSON.stringify(p.services))
+                    places.forEach(function (p) {
+                        var id = p._id;
+                        delete p._id;
+                        data.places[id] = p;
+                    });
 
-                    var id = p._id;
-
-                    var newPlace = JSON.parse(JSON.stringify(p))
-
-                    delete newPlace._id;
-                    delete newPlace.nid;
-                    delete newPlace.slug;
-
-                    newPlace.services = services.map(function (s) {
-                        delete s._id;
-                        delete s.nid;
-                        delete s.slug;
-                        delete s.place;
+                    services = services.map(function (s) {
+                        s = JSON.parse(JSON.stringify(s))
                         delete s.locationNid;
+                        delete s.slug;
+                        delete s.type;
                         delete s.location;
+
+//                        s.source = "St. Stephen's Handbook of the Streets";
+
+                        console.log('service:');
+                        console.log(s);
+                        s.serviceType = s.serviceType ? s.serviceType.title : null;
                         return s;
-                    })
+                    });
 
-                    console.log(newPlace.services);
+                    services.forEach(function (s) {
+                        var placeId = s.place;
+                        var serviceId = s._id;
+                        if (data.places[placeId]) {
+                            delete s.place;
+                            delete s._id;
+                            data.places[placeId].services.push(s);
+                        }
+                    });
 
-                    locals.data.places[id] = newPlace;                    
-                    
-//                    keystone.populateRelated(p.services, ['serviceType'], function() {
-//                        console.log(p.services);
-                        def.resolve();
-//                    });
+                    locals.data = data;
 
-                    promises.push(def.promise);
-
-                });
-                
-                Q.all(promises).then(function(){
                     next(err);
                 });
-
-            })
+            });
         });
-*/
+        /*
+                var q = keystone.list('Place').paginate({
+                    page: req.query.page || 1,
+                    perPage: 100,
+                    maxPages: 10
+                });
+
+                q.exec(function (err, response) {
+                    keystone.populateRelated(response.results, ['services'], function () {
+                        
+                        var promises = [];
+
+                        response.results.forEach(function (p) {
+                            
+                            var def = Q.defer();
+
+                            var services = JSON.parse(JSON.stringify(p.services))
+
+                            var id = p._id;
+
+                            var newPlace = JSON.parse(JSON.stringify(p))
+
+                            delete newPlace._id;
+                            delete newPlace.nid;
+                            delete newPlace.slug;
+
+                            newPlace.services = services.map(function (s) {
+                                delete s._id;
+                                delete s.nid;
+                                delete s.slug;
+                                delete s.place;
+                                delete s.locationNid;
+                                delete s.location;
+                                return s;
+                            })
+
+                            console.log(newPlace.services);
+
+                            locals.data.places[id] = newPlace;                    
+                            
+        //                    keystone.populateRelated(p.services, ['serviceType'], function() {
+        //                        console.log(p.services);
+                                def.resolve();
+        //                    });
+
+                            promises.push(def.promise);
+
+                        });
+                        
+                        Q.all(promises).then(function(){
+                            next(err);
+                        });
+
+                    })
+                });
+        */
     });
 
     // Render the view
